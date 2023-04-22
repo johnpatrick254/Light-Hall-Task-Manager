@@ -12,9 +12,10 @@ import {
   deleteFromCompleted,
   deleteFromPending,
   deleteFromdueDate,
-  markDueDate
+  markDueDate,
 } from "../statecontroller/tasksSlice";
 import Inputfield from "./inpufield";
+import axios from "axios";
 
 const Note = (props) => {
   const [edit, setEdit] = useState(false);
@@ -31,11 +32,9 @@ const Note = (props) => {
               id={props.id}
               className="task"
               onClick={(e) => {
-                if(props.filters === "All"){
-
+                if (props.filters === "All") {
                   setEdit(true);
                 }
-            
               }}
               status={props.status}>
               {props.title}
@@ -139,22 +138,76 @@ const Note = (props) => {
                     id: props.id,
                   })
                 );
+                const token = "Bearer " + localStorage.getItem("token");
+                console.log(token);
+                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                const headers = {
+                  Authorization: `${token}`,
+                };
+                axios({
+                  method: "DELETE",
+                  url: baseUrl,
+                  data: {
+                    _id: props.id,
+                    title: props.title,
+                    description: props.description,
+                    status: props.status,
+                    dueDate: props.dueDate,
+                  },
+                  headers: headers,
+                }).catch((error) => console.log(error));
               } else if (props.filters === "Completed") {
                 dispatch(
                   deleteFromCompleted({
                     id: props.id,
                   })
                 );
-              }else if(props.filters==="dueDate"){
+                const token = "Bearer " + localStorage.getItem("token");
+                console.log(token);
+                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                const headers = {
+                  Authorization: `${token}`,
+                };
+                axios({
+                  method: "DELETE",
+                  url: baseUrl,
+                  data: {
+                    _id: props.id,
+                    title: props.title,
+                    description: props.description,
+                    status: props.status,
+                    dueDate: props.dueDate,
+                    user: props.user,
+                  },
+                  headers: headers,
+                }).catch((error) => console.log(error));
+              } else if (props.filters === "dueDate") {
                 dispatch(
                   deleteFromdueDate({
                     id: props.id,
                   })
                 );
+                const token = "Bearer " + localStorage.getItem("token");
+                console.log(token);
+                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                const headers = {
+                  Authorization: `${token}`,
+                };
+               axios({
+                  method: "DELETE",
+                  url: baseUrl,
+                  data: {
+                    _id: props.id,
+                    title: props.title,
+                    description: props.description,
+                    status: props.status,
+                    dueDate: props.dueDate,
+                    user: props.user,
+                  },
+                  headers: headers,
+                }).catch((error) => console.log(error));
               }
-            }
-            
-            }>
+            }}>
             <DeleteIcon />
           </button>
         </div>
@@ -162,6 +215,8 @@ const Note = (props) => {
         <Inputfield
           title={props.title}
           titleValue={taskTitle}
+          titlePlaceHolder={props.title}
+          descriptPlaceHolder={props.description}
           handleTitleEdit={(e) => {
             setTaskTitle(e.target.value);
             console.log(e.target.value);
@@ -172,20 +227,37 @@ const Note = (props) => {
             setTaskDescription(e.target.value);
           }}
           description={props.description}
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             setEdit(false);
             e.preventDefault();
-            dispatch(
-              updateTask({
-                id: props.id,
-                content: {
-                  title: e.target.title.value,
-                  description: e.target.description.value,
-                  status: props.status,
-                  dueDate: e.target.date.value,
-                },
-              })
-            );
+            const data = {
+              id: props.id,
+              content: {
+                title: e.target.title.value,
+                description: e.target.description.value,
+                status: props.status,
+                dueDate: e.target.date.value,
+              },
+            };
+            dispatch(updateTask(data));
+
+            const token = "Bearer " + localStorage.getItem("token");
+            const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props._id}`;
+            const headers = {
+              Authorization: `${token}`,
+            };
+
+           await axios({
+              method: "PUT",
+              url: baseUrl,
+              data: {
+                title: e.target.title.value,
+                description: e.target.description.value,
+                status: props.status,
+                dueDate: e.target.date.value,
+              },
+              headers: headers,
+            }).catch((error) => console.log(error));
           }}
         />
       )}

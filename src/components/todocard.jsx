@@ -63,37 +63,45 @@ export const TodoCard = (props, { taskData }) => {
         </div>
         <Inputfield
           title={props.title}
+          titlePlaceHolder="Create A new Task"
+          descriptPlaceHolder=" Add description ..."
           titleValue={title}
           handleTitleEdit={(e) => {
             setTitle(e.target.value);
-            console.log(e.target.value);
           }}
           contentValue={descript}
           changeContent={(e) => {
-            console.log(e.target.value);
             setDescription(e.target.value);
           }}
           description={props.description}
-          onSubmit={async (e) => {
+          onSubmit={ (e) => {
             const data = {
               title: e.target.title.value,
               description: e.target.description.value,
-              status: "pending",
+              status: "Pending",
               dueDate: e.target.date.value,
-              user: "john",
-              _id: (Math.random() * 2000 * Math.random() + 7000 * Math.random()),
-            }
+              user: props.user,
+              _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+            };
+            setTitle("");
+            setDescription("");
             e.preventDefault();
-            dispatch(
-              addTask(data)
-            );
-            await axios({
-              method: 'POST',
-              url: `${baseUrl}tasks`,
-              data: {data}
-            })
-            .catch(console.error)
+            dispatch(addTask(data));
 
+            const token = "Bearer " + localStorage.getItem("token");
+            const baseUrlAdd = `https://backendfortasktracker.herokuapp.com/tasks`;
+            const headers = {
+              Authorization: `${token}`,
+            };
+
+             axios({
+              method: "post",
+              url: baseUrlAdd,
+              data: data,
+              headers: headers,
+            }).catch((error) => console.log(error));
+
+            
           }}
         />
 
@@ -161,6 +169,7 @@ export const TodoCard = (props, { taskData }) => {
                 dueDate={task.dueDate}
                 description={task.description}
                 filters={filter}
+                user={task.user}
               />
             );
           })
@@ -179,6 +188,7 @@ export const TodoCard = (props, { taskData }) => {
                 filters={filter}
                 dueDate={task.dueDate}
                 description={task.description}
+                user={task.user}
               />
             );
           })}
@@ -194,6 +204,7 @@ export const TodoCard = (props, { taskData }) => {
                 filters={filter}
                 dueDate={task.dueDate}
                 description={task.description}
+                user={task.user}
               />
             );
           })}
@@ -209,6 +220,7 @@ export const TodoCard = (props, { taskData }) => {
                 filters={filter}
                 description={task.description}
                 dueDate={task.dueDate}
+                user={task.user}
               />
             );
           })}

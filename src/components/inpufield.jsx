@@ -39,14 +39,14 @@ function Inputfield(props) {
           className="title"
           name="title"
           value={props.titleValue}
-          placeholder="Create New Task"
+          placeholder={props.titlePlaceHolder}
         />
         <textarea
           onClick={() => setZoom(true)}
           name="description"
           onChange={props.changeContent}
           value={props.contentValue}
-          placeholder="Enter Description..."
+          placeholder={props.descriptPlaceHolder}
           rows={zoomIn ? "4" : "1"}
         />
         <p>
