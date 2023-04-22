@@ -1,0 +1,337 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;1,700&display=swap");
+:root {
+  --BrightBlue: hsl(220, 98%, 61%);
+  --Background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+  /* light theme */
+  --Very_Light_Gray: hsl(0, 0%, 98%);
+  --Very_Light_Grayish_Blue: hsl(236, 33%, 92%);
+  --Light_Grayish_Blue: hsl(233, 11%, 84%);
+  --Dark_Grayish_Blue: hsl(236, 9%, 61%);
+  --Very_Dark_Grayish_Blue: hsl(235, 19%, 35%);
+
+  /* ### Dark Theme */
+
+  --Very_Dark_Blue: hsl(235, 21%, 11%);
+  --Very_Dark_Desaturated_Blue: hsl(235, 24%, 19%);
+  --Light_Grayish_Blue: hsl(234, 39%, 85%);
+  --Light_Grayish_Blue_Hover: hsl(236, 33%, 92%);
+  --Dark_Grayish_Blue: hsl(234, 11%, 52%);
+  --Very_Dark_Grayish_Blue: hsl(233, 14%, 35%);
+  --Very_Dark_Grayish_Blue: hsl(237, 14%, 26%);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.container {
+  margin: 0;
+  padding: 0;
+  min-width: 1024px;
+  min-height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+  background-image: url(assets/images/bg-desktop-dark.jpg);
+  background-repeat: no-repeat;
+  background-color: var(--Very_Dark_Blue);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.tasks {
+  margin-top: 4%;
+  width: 30%;
+  min-width: min-content;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.tasklist {
+  margin: 2%;
+  display: flex;
+  flex-flow: row wrap;
+  width: 100vw;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+.note {
+  background: rgb(41, 41, 71);
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 10px;
+  width: 240px;
+  margin: 16px;
+  float: left;
+  text-align: center;
+}
+.note h1 {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+}
+.note p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.circle {
+  border: 1px solid rgb(175, 178, 189);
+  border-radius: 50%;
+  height: 1.3rem;
+  width: 1.3rem;
+  display: inherit;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.check {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  display: inherit;
+  height: 1.2rem;
+  width: 1.2rem;
+  padding: 10%;
+  background-color: var(--BrightBlue);
+  transition: all 200ms ease-in-out;
+  opacity: 1;
+}
+.uncheck {
+  opacity: 0;
+  transition: all 200ms ease-in-out;
+}
+.tasksheader {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.tasksheader h1 {
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--Very_Light_Grayish_Blue);
+}
+.tasksheader img:hover {
+  cursor: pointer;
+}
+.tasksheader h1 {
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--Very_Light_Grayish_Blue);
+}
+
+.inputfield {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--Very_Dark_Grayish_Blue);
+  height: 2.8rem;
+  padding: 5%;
+  border-radius: 5px;
+}
+
+.form {
+  width: 90%;
+  justify-self: flex-end;
+}
+.input-form {
+  width: 100%;
+  background-color: var(--Very_Dark_Grayish_Blue);
+  font-family: "Josefin Sans", -apple-system;
+  border: none;
+  outline: none;
+  color: var(--Very_Light_Gray);
+}
+
+.alltaskcontainer {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: var(--Very_Dark_Grayish_Blue);
+  border-radius: 5px;
+  min-height: max-content;
+}
+
+.taskcontainer {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-flow: row nowrap;
+  /* justify-content: space-between; */
+  align-items: center;
+  background-color: var(--Very_Dark_Grayish_Blue);
+  height: 2.8rem;
+  padding: 5%;
+  border-radius: 5px 5px 0 0;
+  gap: 1rem;
+  border-bottom: 1px solid gray;
+  font-size: 1rem;
+}
+
+.taskcard {
+  list-style: none;
+  display: flex;
+  flex-flow: column nowrap;
+  height: fit-content;
+}
+
+.task {
+  justify-self: flex-start;
+  list-style: none;
+  color: var(--Very_Light_Gray);
+  text-decoration: none;
+  display: inherit;
+}
+.taskcontainer > img {
+  padding-left: 28%;
+  cursor: pointer;
+}
+
+.taskscontrols {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--Very_Dark_Grayish_Blue);
+  height: 2.8rem;
+  padding: 5%;
+  gap: 1rem;
+  color: var(--Very_Light_Gray);
+  font-size: 1rem;
+  border-radius: 0 0 5px 5px;
+}
+
+.statuscard {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.9rem;
+  cursor: pointer;
+}
+
+.task_status:hover {
+  font-weight: 800;
+  color: var(--BrightBlue);
+}
+
+.task_status_checked {
+  font-weight: 800;
+  color: var(--BrightBlue);
+}
+.hide {
+  display: none;
+}
+
+.inputfieldcomponent {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 100%;
+  justify-content: space-between;
+  overflow: auto;
+  height: auto;
+}
+.create-note {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+form.create-note {
+  position: relative;
+  width: 100%;
+  margin: 30px auto 20px auto;
+  background: var(--Light_Grayish_Blue);
+  padding: 15px;
+  border-radius: 7px;
+  box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+form.create-note input,
+form.create-note textarea {
+  text-align: center;
+  width: 100%;
+  border: none;
+  padding: 4px;
+  outline: none;
+  background: var(--Light_Grayish_Blue);
+  font-size: 1.2em;
+  font-family: inherit;
+  resize: none;
+}
+form.create-note > button {
+  position: absolute;
+  right: 18px;
+  bottom: -18px;
+  background: var(--BrightBlue);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+}
+.date {
+  width: 40%;
+  height: max-content;
+}
+
+.contentHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.dueDate p {
+  color: var(--Very_Light_Gray);
+  border: 1px solid var(--Light_Grayish_Blue_Hover);
+  border-radius: 3px;
+  width: 65%;
+  font-size: 0.9rem;
+  padding: 3px 0;
+}
+
+.dueDate {
+  width: 100%;
+  margin-left: 15%;
+}
+.contents {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  color: var(--Very_Light_Grayish_Blue);
+}
+
+.note .create-note {
+  height: 100%;
+  width: 100%;
+}
+.note .inputfieldcomponent {
+  height: 100%;
+  width: 100%;
+}
+
+.note .date {
+  width: 50%;
+}
