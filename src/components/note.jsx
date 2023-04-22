@@ -132,19 +132,15 @@ const Note = (props) => {
                   id: props.id,
                 })
               );
-              if (props.filters === "Pending") {
-                dispatch(
-                  deleteFromPending({
-                    id: props.id,
-                  })
-                );
-                const token = "Bearer " + localStorage.getItem("token");
-                console.log(token);
+              
+              const token = "Bearer " + localStorage.getItem("token");
+                
                 const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                console.log(baseUrl);
                 const headers = {
                   Authorization: `${token}`,
                 };
-                axios({
+               axios({
                   method: "DELETE",
                   url: baseUrl,
                   data: {
@@ -153,18 +149,22 @@ const Note = (props) => {
                     description: props.description,
                     status: props.status,
                     dueDate: props.dueDate,
+                    user: props.user,
                   },
                   headers: headers,
                 }).catch((error) => console.log(error));
-              } else if (props.filters === "Completed") {
+
+
+              
+              if (props.filters === "Pending") {
                 dispatch(
-                  deleteFromCompleted({
+                  deleteFromPending({
                     id: props.id,
                   })
                 );
                 const token = "Bearer " + localStorage.getItem("token");
-                console.log(token);
                 const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                console.log(baseUrl);
                 const headers = {
                   Authorization: `${token}`,
                 };
@@ -181,15 +181,16 @@ const Note = (props) => {
                   },
                   headers: headers,
                 }).catch((error) => console.log(error));
-              } else if (props.filters === "dueDate") {
+              } else if (props.filters === "Completed") {
                 dispatch(
-                  deleteFromdueDate({
+                  deleteFromCompleted({
                     id: props.id,
                   })
                 );
                 const token = "Bearer " + localStorage.getItem("token");
-                console.log(token);
+                
                 const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                console.log(baseUrl);
                 const headers = {
                   Authorization: `${token}`,
                 };
@@ -242,7 +243,7 @@ const Note = (props) => {
             dispatch(updateTask(data));
 
             const token = "Bearer " + localStorage.getItem("token");
-            const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props._id}`;
+            const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
             const headers = {
               Authorization: `${token}`,
             };
