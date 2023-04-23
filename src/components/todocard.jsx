@@ -90,7 +90,7 @@ export const TodoCard = (props, { taskData }) => {
       console.log(error);
       dispatch(setAll([{
         title: "Error ",
-        description: "No Tasks found, your account is not registered, sing up first then login",
+        description: "No Tasks found, your account is not registered, sign up first then login",
         status: "Pending",
         dueDate: "2023-04-25",
         user: props.user,
