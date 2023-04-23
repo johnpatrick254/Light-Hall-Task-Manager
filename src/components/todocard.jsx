@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import moonicon from "../assets/images/icon-moon.svg";
+import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from "react-redux";
 import checkicon from "../assets/images/icon-check.svg";
 import {
@@ -18,7 +18,6 @@ import {
 import Inputfield from "./inpufield";
 import Note from ".//note";
 import axios from "axios";
-import LoadingBar from "./loading";
 import SkeleTon from "./skeleteton";
 const baseUrl = "https://backendfortasktracker.herokuapp.com/";
 
@@ -36,6 +35,28 @@ export const TodoCard = (props, { taskData }) => {
   const [filter, setFilter] = useState("All");
   const [isloaded, setIsLoaded] = useState(false);
 
+  const addNewTask = async (payload) => {
+    
+    const token = "Bearer " + localStorage.getItem("token");
+    console.log(token);
+    const addbaseUrl = 'https://backendfortasktracker.herokuapp.com/tasks';
+    const headers = { 
+        // 'Content-Type' : 'application/json',
+        // 'Accept' : 'application/json',
+        'Authorization' : `${token}`
+      }
+    console.log(headers);
+    try  {
+      await axios({
+      method: "post",
+      url: addbaseUrl,
+      data: payload,
+      headers: headers,
+    }).then((res) => console.log(res));
+    } catch (error){}
+   
+  }
+
   const refreshList = () => {
     setIsLoaded(false);
     fetchTasks();
@@ -47,8 +68,11 @@ export const TodoCard = (props, { taskData }) => {
       });
       setIsLoaded(true);
 
-      if(response.date.length !== 0){
-        dispatch(setAll(response.data));
+      if(response.data.length !== 0){
+       
+        const newState = response.data
+        console.log(newState)
+        dispatch(setAll(newState));
          dispatch(getPending());
       }
     } catch (error) {
@@ -83,25 +107,13 @@ export const TodoCard = (props, { taskData }) => {
               status: "Pending",
               dueDate: e.target.date.value,
               user: props.user,
-              _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+              _id: `${Math.random() * 2000 * Math.random() + 7000 * Math.random()}`,
             };
             setTitle("");
             setDescription("");
             e.preventDefault();
             dispatch(addTask(data));
-
-            const token = "Bearer " + localStorage.getItem("token");
-            const baseUrlAdd = `https://backendfortasktracker.herokuapp.com/tasks`;
-            const headers = {
-              Authorization: `${token}`,
-            };
-            
-            axios({
-              method: "post",
-              url: baseUrlAdd,
-              data: data,
-              headers: headers,
-            }).catch((error) => console.log(error));
+           addNewTask(data)
 
             
           }}
@@ -227,7 +239,9 @@ export const TodoCard = (props, { taskData }) => {
             );
           })}
       </div>
-      <button onClick={refreshList}>Refresh</button>
+      <Button onClick={refreshList} variant="contained" size ="medium">Refresh</Button>
+
+  
     </div>
   );
 };

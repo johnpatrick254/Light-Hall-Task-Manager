@@ -14,7 +14,7 @@ export const Tasks = createSlice({
     value: [
       {
         title: "Hi ",
-        description:"Click on Add description to display icon",
+        description:"Click on Add description to display add task icon",
         status: "Pending",
         dueDate: "2023-04-25",
         user: "Example",
@@ -29,7 +29,7 @@ export const Tasks = createSlice({
         _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
       },{
         title: "First task, edit this! ",
-        description:"Click on the circle to check complete",
+        description:"then click on the trash icon to delete",
         status: "Pending",
         dueDate: "2023-04-25",
         user: "Example",
