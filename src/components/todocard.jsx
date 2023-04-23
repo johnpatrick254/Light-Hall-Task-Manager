@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import checkicon from "../assets/images/icon-check.svg";
 import {
@@ -35,9 +35,9 @@ export const TodoCard = (props, { taskData }) => {
   const [descript, setDescription] = useState("");
   const [filter, setFilter] = useState("All");
   const [isloaded, setIsLoaded] = useState(false);
-  const [date,setDate] = useState('')
-  
- const navigate =useNavigate()
+  const [date, setDate] = useState("");
+
+  const navigate = useNavigate();
   const newTask = {
     title: title,
     description: descript,
@@ -45,29 +45,27 @@ export const TodoCard = (props, { taskData }) => {
     dueDate: date,
     user: props.user,
     // id: `${Math.random() * 2000 * Math.random() + 7000 * Math.random()}`,
-  }
+  };
 
   const addNewTask = async (event) => {
-    
     const token = "Bearer " + localStorage.getItem("token");
     console.log(token);
-    const addbaseUrl = 'https://backendfortasktracker.herokuapp.com/tasks';
-    const headers = { 
-        // 'Content-Type' : 'application/json',
-        // 'Accept' : 'application/json',
-        'Authorization' : `${token}`
-      }
+    const addbaseUrl = "https://backendfortasktracker.herokuapp.com/tasks";
+    const headers = {
+      // 'Content-Type' : 'application/json',
+      // 'Accept' : 'application/json',
+      Authorization: `${token}`,
+    };
     console.log(headers);
-    try  {
+    try {
       await axios({
-      method: "post",
-      url: addbaseUrl,
-      data: newTask,
-      headers: headers,
-    }).then((res) => console.log(res));
-    } catch (error){}
-   
-  }
+        method: "post",
+        url: addbaseUrl,
+        data: newTask,
+        headers: headers,
+      }).then((res) => console.log(res));
+    } catch (error) {}
+  };
 
   const refreshList = () => {
     setIsLoaded(false);
@@ -80,27 +78,35 @@ export const TodoCard = (props, { taskData }) => {
       });
       setIsLoaded(true);
 
-      if(response.data.length !== 0){
-       
-        const newState = response.data.filter(task => task.user == props.user)
-        console.log(newState)
+      if (response.data.length !== 0) {
+        const newState = response.data.filter(
+          (task) => task.user == props.user
+        );
+        console.log(newState);
         dispatch(setAll(newState));
-         dispatch(getPending());
-      } 
+        dispatch(getPending());
+      }
     } catch (error) {
       console.log(error);
-      dispatch(setAll([{
-        title: "Error ",
-        description: "No Tasks found, your account is not Registered, Sign up first then Login. You will be redirected to the Sign up page...",
-        status: "Pending",
-        dueDate: "2023-04-25",
-        user: props.user,
-        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
-      }]))
-      setIsLoaded(true)
-      setTimeout(()=>{
-        navigate('/')
-      },7000)
+      dispatch(
+        setAll([
+          {
+            title: "Error ",
+            description:
+              "No Tasks found, your account is not Registered, Sign up first then Login. You will be redirected to the Sign up page...",
+            status: "Pending",
+            dueDate: "2023-04-25",
+            user: props.user,
+            _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+          },
+        ])
+      );
+      setIsLoaded(true);
+      setTimeout(() => {
+        localStorage.clear();
+
+        navigate("/");
+      }, 7000);
     }
   };
   !isloaded && fetchTasks();
@@ -116,10 +122,10 @@ export const TodoCard = (props, { taskData }) => {
           titlePlaceHolder="Create A new Task"
           descriptPlaceHolder=" Add description ..."
           titleValue={title}
-          handleDate= {(e)=>{
-            setDate(e.target.value)
-         }}
-         date={date}
+          handleDate={(e) => {
+            setDate(e.target.value);
+          }}
+          date={date}
           handleTitleEdit={(e) => {
             setTitle(e.target.value);
           }}
@@ -128,26 +134,26 @@ export const TodoCard = (props, { taskData }) => {
             setDescription(e.target.value);
           }}
           description={props.description}
-          onSubmit={ (e) => {
+          onSubmit={(e) => {
             const data = {
               title: e.target.title.value,
               description: e.target.description.value,
               status: "Pending",
               dueDate: e.target.date.value,
               user: props.user,
-              _id: `${Math.random() * 2000 * Math.random() + 7000 * Math.random()}`,
+              _id: `${
+                Math.random() * 2000 * Math.random() + 7000 * Math.random()
+              }`,
             };
             setTitle("");
             setDescription("");
             e.preventDefault();
             dispatch(addTask(data));
-           addNewTask()
+            addNewTask();
 
-           setTimeout(()=>{
-            refreshList()
-           },500)
-
-            
+            setTimeout(() => {
+              refreshList();
+            }, 500);
           }}
         />
 
@@ -271,9 +277,9 @@ export const TodoCard = (props, { taskData }) => {
             );
           })}
       </div>
-      <Button onClick={refreshList} variant="contained" size ="medium">Refresh</Button>
-
-  
+      <Button onClick={refreshList} variant="contained" size="medium">
+        Refresh
+      </Button>
     </div>
   );
 };
