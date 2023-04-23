@@ -19,7 +19,8 @@ import Inputfield from "./inpufield";
 import Note from ".//note";
 import axios from "axios";
 import SkeleTon from "./skeleteton";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { reloadPage } from "../App";
 const baseUrl = "https://backendfortasktracker.herokuapp.com/";
 
 // import { response } from "express";
@@ -106,6 +107,8 @@ export const TodoCard = (props, { taskData }) => {
         localStorage.clear();
 
         navigate("/");
+      reloadPage()
+
       }, 7000);
     }
   };
