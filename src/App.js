@@ -5,36 +5,42 @@ import { Routes, Route } from "react-router-dom";
 import { Signup } from "./components/Signup";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-const reloadPage = ()=>{
-  window.location.reload()
-}
+import { Analytics } from "@vercel/analytics/react";
+const reloadPage = () => {
+  window.location.reload();
+};
 function App() {
+  const [hideLogin, setHideLogin] = useState(false);
 
-  const [hideLogin,setHideLogin] = useState(false)
-  
   return (
     // <div className="App">
     //   <h1>Super League - Level 2 - Team 16</h1>
     <div className="App">
-     { !hideLogin && <nav className="navigation ">
-        <ul className="home logout">
+      {!hideLogin && (
+        <nav className="navigation ">
+          <ul className="home logout">
+            <Link
+              onClick={() => {
+                setHideLogin(true);
+              }}
+              to="/login">
+              Sign In
+            </Link>
 
-          
-            <Link onClick={()=>{setHideLogin(true)}} to="/login">Sign In</Link>
-        
-          
             <Link to="/signup">Sign Up</Link>
-          
-        </ul>
-      </nav>}
+          </ul>
+        </nav>
+      )}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
+
+      <Analytics />
     </div>
   );
 }
 
 export default App;
-export {reloadPage}
+export { reloadPage };
