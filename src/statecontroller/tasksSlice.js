@@ -3,32 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const Tasks = createSlice({
   name: "tasks",
   initialState: {
-    value: [
-      {
-        title: "Hi ",
-        description: "Click on Add description to display add task icon",
-        status: "Pending",
-        dueDate: "2023-04-25",
-        user: "Example",
-        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
-      },
-      {
-        title: "Click on Task Title to Edit Task ",
-        description: "Click on the description to show add icon",
-        status: "Pending",
-        dueDate: "2023-04-25",
-        user: "Example",
-        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
-      },
-      {
-        title: "First task, edit this! ",
-        description: "then click on the trash icon to delete",
-        status: "Pending",
-        dueDate: "2023-04-25",
-        user: "Example",
-        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
-      },
-    ],
+    value: [],
     pendingTasks: [],
     completedTasks: [],
     dueDate: [],
