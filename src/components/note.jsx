@@ -206,6 +206,32 @@ const Note = (props) => {
                   },
                   headers: headers,
                 }).catch((error) => console.log(error));
+              }  else if (props.filters === "dueDate") {
+                dispatch(
+                  deleteFromdueDate({
+                    id: props.id,
+                  })
+                );
+                const token = "Bearer " + localStorage.getItem("token");
+                
+                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+                console.log(baseUrl);
+                const headers = {
+                  Authorization: `${token}`,
+                };
+               axios({
+                  method: "DELETE",
+                  url: baseUrl,
+                  data: {
+                    _id: props.id,
+                    title: props.title,
+                    description: props.description,
+                    status: props.status,
+                    dueDate: props.dueDate,
+                    user: props.user,
+                  },
+                  headers: headers,
+                }).catch((error) => console.log(error));
               }
             }}>
             <DeleteIcon />
