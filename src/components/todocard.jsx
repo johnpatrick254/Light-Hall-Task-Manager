@@ -85,9 +85,18 @@ export const TodoCard = (props, { taskData }) => {
         console.log(newState)
         dispatch(setAll(newState));
          dispatch(getPending());
-      }
+      } 
     } catch (error) {
       console.log(error);
+      dispatch(setAll([{
+        title: "Error ",
+        description: "No Tasks found, your account is not registered, sing up first then login",
+        status: "Pending",
+        dueDate: "2023-04-25",
+        user: props.user,
+        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+      }]))
+      setIsLoaded(true)
     }
   };
   !isloaded && fetchTasks();
