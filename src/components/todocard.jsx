@@ -19,6 +19,7 @@ import Inputfield from "./inpufield";
 import Note from ".//note";
 import axios from "axios";
 import SkeleTon from "./skeleteton";
+import { Navigate, useNavigate } from "react-router-dom";
 const baseUrl = "https://backendfortasktracker.herokuapp.com/";
 
 // import { response } from "express";
@@ -36,7 +37,7 @@ export const TodoCard = (props, { taskData }) => {
   const [isloaded, setIsLoaded] = useState(false);
   const [date,setDate] = useState('')
   
-
+ const navigate =useNavigate()
   const newTask = {
     title: title,
     description: descript,
@@ -90,13 +91,16 @@ export const TodoCard = (props, { taskData }) => {
       console.log(error);
       dispatch(setAll([{
         title: "Error ",
-        description: "No Tasks found, your account is not registered, sign up first then login",
+        description: "No Tasks found, your account is not Registered, Sign up first then Login. You will be redirected to the Sign up page...",
         status: "Pending",
         dueDate: "2023-04-25",
         user: props.user,
         _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
       }]))
       setIsLoaded(true)
+      setTimeout(()=>{
+        navigate('/')
+      },7000)
     }
   };
   !isloaded && fetchTasks();
