@@ -25,7 +25,6 @@ function Inputfield(props) {
    const covertedDate = new Date(newDate)
 
    let defaultDate = covertedDate.toLocaleDateString('en-US')
-  const [date,setDate] = useState('')
 
   return (
     <div className="inputfieldcomponent">
@@ -53,9 +52,7 @@ function Inputfield(props) {
           <strong>Set Due Date</strong>
         </p>
 
-        <input onChange={(e)=>{
-           setDate(e.target.value)
-        }} type = "date" value={date} min ={defaultDate} name ="date"/> 
+        <input onChange={props.handleDate} type = "date" value={props.date} min ={defaultDate} name ="date"/> 
 
         <Zoom in={zoomIn && true}>
           <button type="submit">+</button>

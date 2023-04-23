@@ -34,8 +34,19 @@ export const TodoCard = (props, { taskData }) => {
   const [descript, setDescription] = useState("");
   const [filter, setFilter] = useState("All");
   const [isloaded, setIsLoaded] = useState(false);
+  const [date,setDate] = useState('')
+  
 
-  const addNewTask = async (payload) => {
+  const newTask = {
+    title: title,
+    description: descript,
+    status: "Pending",
+    dueDate: date,
+    user: props.user,
+    // id: `${Math.random() * 2000 * Math.random() + 7000 * Math.random()}`,
+  }
+
+  const addNewTask = async (event) => {
     
     const token = "Bearer " + localStorage.getItem("token");
     console.log(token);
@@ -50,7 +61,7 @@ export const TodoCard = (props, { taskData }) => {
       await axios({
       method: "post",
       url: addbaseUrl,
-      data: payload,
+      data: newTask,
       headers: headers,
     }).then((res) => console.log(res));
     } catch (error){}
@@ -70,7 +81,7 @@ export const TodoCard = (props, { taskData }) => {
 
       if(response.data.length !== 0){
        
-        const newState = response.data
+        const newState = response.data.filter(task => task.user == props.user)
         console.log(newState)
         dispatch(setAll(newState));
          dispatch(getPending());
@@ -92,6 +103,10 @@ export const TodoCard = (props, { taskData }) => {
           titlePlaceHolder="Create A new Task"
           descriptPlaceHolder=" Add description ..."
           titleValue={title}
+          handleDate= {(e)=>{
+            setDate(e.target.value)
+         }}
+         date={date}
           handleTitleEdit={(e) => {
             setTitle(e.target.value);
           }}
@@ -113,7 +128,11 @@ export const TodoCard = (props, { taskData }) => {
             setDescription("");
             e.preventDefault();
             dispatch(addTask(data));
-           addNewTask(data)
+           addNewTask()
+
+           setTimeout(()=>{
+            refreshList()
+           },500)
 
             
           }}

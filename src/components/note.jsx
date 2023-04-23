@@ -1,6 +1,5 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { inputRef, useState } from "react";
-import crossIcon from "../assets/images/icon-cross.svg";
 import checkicon from "../assets/images/icon-check.svg";
 import { useDispatch } from "react-redux";
 import {
