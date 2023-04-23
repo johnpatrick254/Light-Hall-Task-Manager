@@ -55,8 +55,8 @@ body {
 }
 
 .tasks {
-  margin-top: 4%;
-  width: 30%;
+  margin-top: 0%;
+  width: 50%;
   min-width: min-content;
   display: flex;
   flex-flow: column nowrap;
@@ -138,9 +138,11 @@ body {
   letter-spacing: 4px;
   color: var(--Very_Light_Grayish_Blue);
 }
-
+.tasks .create-note{
+  width: 45%;
+}
 .inputfield {
-  width: 100%;
+  width: 1000%;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;

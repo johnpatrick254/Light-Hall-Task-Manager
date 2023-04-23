@@ -256,6 +256,7 @@ const Note = (props) => {
                 description: e.target.description.value,
                 status: props.status,
                 dueDate: e.target.date.value,
+                id:props.id
               },
               headers: headers,
             }).catch((error) => console.log(error));

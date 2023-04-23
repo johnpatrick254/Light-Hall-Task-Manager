@@ -11,7 +11,31 @@ import { useEffect } from "react";
 export const Tasks = createSlice({
   name: "tasks",
   initialState: {
-    value: [],
+    value: [
+      {
+        title: "Hi ",
+        description:"Click on Add description to display icon",
+        status: "Pending",
+        dueDate: "2023-04-25",
+        user: "Example",
+        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+      },
+      {
+        title: "Click on Task Title to Edit Task ",
+        description:"Click on the description to show add icon",
+        status: "Pending",
+        dueDate: "2023-04-25",
+        user: "Example",
+        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+      },{
+        title: "First task, edit this! ",
+        description:"Click on the circle to check complete",
+        status: "Pending",
+        dueDate: "2023-04-25",
+        user: "Example",
+        _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+      }
+    ],
     pendingTasks: [],
     completedTasks: [],
     dueDate:[]

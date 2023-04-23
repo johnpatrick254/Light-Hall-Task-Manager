@@ -45,9 +45,12 @@ export const TodoCard = (props, { taskData }) => {
       const response = await axios.get(baseUrl, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      dispatch(setAll(response.data));
-      dispatch(getPending());
       setIsLoaded(true);
+
+      if(response.date.length !== 0){
+        dispatch(setAll(response.data));
+         dispatch(getPending());
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,8 +61,7 @@ export const TodoCard = (props, { taskData }) => {
     <div className="body">
       <div className="tasks">
         <div className="tasksheader">
-          <h1>My Tasks</h1>
-          <img src={moonicon} alt="theme mode img" />
+          <h1> Welcome {props.user}, Manage Your Tasks</h1>
         </div>
         <Inputfield
           title={props.title}
@@ -93,8 +95,8 @@ export const TodoCard = (props, { taskData }) => {
             const headers = {
               Authorization: `${token}`,
             };
-
-             axios({
+            
+            axios({
               method: "post",
               url: baseUrlAdd,
               data: data,
