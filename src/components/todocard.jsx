@@ -93,7 +93,7 @@ export const TodoCard = (props, { taskData }) => {
           {
             title: "Error ",
             description:
-              "No Tasks found, your account is not Registered, Sign up first then Login. You will be redirected to the Sign up page...",
+              "No Tasks found, username or Password is wrong, Sign up first or check credentials. You will be redirected to the Sign up page...",
             status: "Pending",
             dueDate: "2023-04-25",
             user: props.user,
