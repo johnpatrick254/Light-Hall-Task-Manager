@@ -3,23 +3,30 @@ import { Dashboard } from "./pages/dashboard";
 import { Login } from "./components/Login";
 import { Routes, Route } from "react-router-dom";
 import { Signup } from "./components/Signup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+const reloadPage = ()=>{
+  window.location.reload()
+}
 function App() {
+
+  const [hideLogin,setHideLogin] = useState(false)
+  
   return (
     // <div className="App">
     //   <h1>Super League - Level 2 - Team 16</h1>
     <div className="App">
-      <nav className="navigation">
-        <ul className="home">
-          <li>
-            <Link to="/login">Sign In</Link>
-          </li>
-          <li>
+     { !hideLogin && <nav className="navigation ">
+        <ul className="home logout">
+
+          
+            <Link onClick={()=>{setHideLogin(true)}} to="/login">Sign In</Link>
+        
+          
             <Link to="/signup">Sign Up</Link>
-          </li>
+          
         </ul>
-      </nav>
+      </nav>}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -30,3 +37,4 @@ function App() {
 }
 
 export default App;
+export {reloadPage}

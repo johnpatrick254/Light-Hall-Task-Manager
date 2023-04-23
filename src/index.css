@@ -337,3 +337,27 @@ form.create-note > button {
 .note .date {
   width: 50%;
 }
+
+.logout{
+  margin: 2%;
+}
+.home{
+  display: flex;
+  flex-flow: column nowrap;
+  list-style: none;
+  gap:1rem;
+}
+
+.home a{
+  text-decoration: none;
+  color: #ccc;
+  margin: auto;
+
+}
+.account{
+  display: flex;
+  flex-flow: column nowrap;
+  list-style: none;
+  margin-top: 4%;
+  gap:1rem;
+}

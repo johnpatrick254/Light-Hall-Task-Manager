@@ -2,13 +2,19 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { TodoCard } from "../components/todocard";
 import { useNavigate, Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import { reloadPage } from "../App";
+
 export const Dashboard = () => {
   const [userTasks, SetUserTasks] = useState(null);
   const [user, setUser] = useState(localStorage.getItem("user"));
   const navigate = useNavigate();
   const onHandle = () => {
     localStorage.clear();
-    navigate("/");
+    navigate("/")
+      reloadPage()
+
+  
   };
 
   const fetchTasks = async () => {
@@ -37,9 +43,13 @@ export const Dashboard = () => {
   return (
     <div>
       <div className="container">
-        <button onClick={onHandle}>Log out</button>
-
-        <TodoCard user={user} />
+        <div className="logout">
+        <Button onClick={onHandle} variant="contained" size="medium">
+        Log Out
+      </Button>
+         </div>
+      
+              <TodoCard user={user} />
       </div>
     </div>
   );
