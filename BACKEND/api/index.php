@@ -25,8 +25,6 @@ if ($url[2] !== "api" || count($url) > 4) {
     http_response_code(400);
     exit(print_r($url));
 }
-
-//sign and sign up
 $id = $url[3] ?? null;
 
 if (isset($url[3]) && $url[3] === "login" || isset($url[3]) && $url[3] === "signup") {

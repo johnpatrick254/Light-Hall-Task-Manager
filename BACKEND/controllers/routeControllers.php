@@ -40,4 +40,3 @@ function handleReq($method, ?string $endPoint, Task $task)
         exit("Only DELETE and GET methods allowed to this route!");
     }
 }
-
