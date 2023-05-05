@@ -9,23 +9,23 @@ use Task;
 function handleReq($method, ?string $endPoint, Task $task)
 {
     if ($endPoint) {
-//handle individual product operations
+        //handle individual product operations
         if ($method == "PUT" || $method == "GET" || $method == "DELETE") {
             if ($method == "GET") {
-             return  $task->getOneTask($endPoint); //fetch single task
+                return  $task->getOneTask($endPoint); //fetch single task
             } else if ($method == "DELETE") {
                 return $task->deleteTask($endPoint); //delete task
-            }else if ($method == "PUT") {
+            } else if ($method == "PUT") {
                 $data = json_decode(file_get_contents('php://input'));
                 $changes = (array) $data[0];
-                return $task->updateTask($endPoint,$changes); //update task
-                
+                return $task->updateTask($endPoint, $changes); //update task
+
             }
         }
         http_response_code(500);
         exit("Only POST, DELETE and GET methods allowed to this route!");
     } else {
-
+        //fetch all tasks or delete multiple
         if ($method == "DELETE" || "GET") {
             if ($method == "DELETE") {
                 $data = json_decode(file_get_contents('php://input'));
@@ -37,6 +37,6 @@ function handleReq($method, ?string $endPoint, Task $task)
             }
         }
         http_response_code(500);
-        exit("Only DELETE and GET methods allowed to this route!");
+        exit(" DELETE and GET methods allowed to this route!");
     }
 }

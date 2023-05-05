@@ -27,10 +27,14 @@ if ($url[2] !== "api" || count($url) > 4) {
 }
 $id = $url[3] ?? null;
 
+//login and sign up
+
 if (isset($url[3]) && $url[3] === "login" || isset($url[3]) && $url[3] === "signup") {
 if ($url[3] === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    //LOGIN
      echo  LoginService\signin();
     } else if ($url[3] === "signup" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    //SIGN UP    
         $firstname = !is_null($_POST['firstname']) ? $_POST['firstname'] : exit("Enter firstname");
         $lastname = !is_null($_POST['lastname']) ? $_POST['lastname'] : die("Enter lastName");
         $userEmail = !is_null($_POST['userEmail']) ? $_POST['userEmail'] : die("Enter userEmail");

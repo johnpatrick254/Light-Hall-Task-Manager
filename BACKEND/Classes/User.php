@@ -41,7 +41,7 @@ class User extends UserModel
             return false;
         } else {
             $this->userexist = true;
-            return json_encode($result);
+            return true;
         }
     }
     //register User

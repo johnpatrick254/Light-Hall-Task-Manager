@@ -57,7 +57,7 @@ class Login
             
         }else{
             $this->userexist = true;
-            return json_encode($result);
+            return true;
         }
         
     }
