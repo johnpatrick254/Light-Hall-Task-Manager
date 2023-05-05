@@ -12,6 +12,8 @@ class User extends UserModel
     private $lastName;
     private $pwd;
     private $conn;
+    private $userexist = true;
+
 
 
     function __construct(string $firstname, string $lastname, string $userEmail, string $password)
@@ -27,20 +29,20 @@ class User extends UserModel
 
     //check if user exists
 
-    public function UserExist()
+    public function UserExist($userEmail)
     {
 
-        $query = "SELECT * FROM  `users_table` WHERE userEmail ='" . $this->userEmail . "'; ";
+        $query = "SELECT * FROM  `users_table` WHERE userEmail ='" . $userEmail . "'; ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_OBJ);
         if (!$result) {
+            $this->userexist = false;
             return false;
-        }else{
-
+        } else {
+            $this->userexist = true;
             return json_encode($result);
         }
-
     }
     //register User
     public function registerUser()
@@ -49,11 +51,9 @@ class User extends UserModel
         try {
             /*Save User in DB*/
             //prepare query
-            if ($this->UserExist()!== false) {
-                die("User already exists");
-            }
-
-            $query = "INSERT INTO `users_table`(firstname,lastname,userEmail,password) VALUES(:firstname,:lastname,:userEmail,:password);";
+            $user = $this->UserExist($this->userEmail);
+            if ($user === false) {
+                $query = "INSERT INTO `users_table`(firstname,lastname,userEmail,password) VALUES(:firstname,:lastname,:userEmail,:password);";
             $stmt = $this->conn->prepare($query);
 
             //bind credentials
@@ -66,12 +66,14 @@ class User extends UserModel
             $stmt->execute();
             http_response_code(200);
             return "Success";
+            } else {
+                die("user Exists");
+            }
+
+           
         } catch (PDOException $e) {
             http_response_code(501);
             echo $e;
         }
     }
-
-
-
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+namespace LoginService;
 //Headers
 header('Access-Control-Allow-Origin:*');
 header('Content-Type:application/json');
@@ -15,14 +16,14 @@ require_once "../config/config.php";
 require_once '../vendor/autoload.php';
 
 use Firebase\JWT\JWT;
-
-
+use Login;
 
 
 function signin()
 {
-    $userEmail =  $_POST['userEmail'];
-    $password = $_POST['password'];
+    $password = !is_null($_POST['password']) ? $_POST['password'] : exit("Enter password");
+
+    $userEmail = !is_null($_POST['userEmail']) ? $_POST['userEmail'] : die("Enter userEmail");
     //sign in
 
     $service = new Login($userEmail, $password);
@@ -32,7 +33,7 @@ function signin()
     if ($status === "wrong username or password" || $status === "User is not registered") {
         return $status;
     } else {
-         //return token
+        //return token
         $payload = array(
             "iat" => time(),
             "exp" => time() + 3600,
@@ -45,9 +46,8 @@ function signin()
         );
         $key = KEYS;
         $jwt = JWT::encode($payload, $key, 'HS256');
-        $jwt= json_encode($jwt);
-        
+        $jwt = json_encode($jwt);
+
         return $jwt;
     }
 }
-echo signin();
