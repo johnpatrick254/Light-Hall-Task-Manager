@@ -171,10 +171,10 @@ class Task extends TaskModel
     public function taskExist($id)
     {
 
-        $query = "SELECT * FROM  `task_table` WHERE userEmail ='" . $this->user . " AND id = $id'; ";
+        $query = "SELECT * FROM  `task_table` WHERE userEmail ='" . $this->user . "' AND id = $id; ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_OBJ);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$result) {
             $this->taskExist = false;
             return false;
