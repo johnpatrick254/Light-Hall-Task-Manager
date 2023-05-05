@@ -19,14 +19,14 @@ class Task extends TaskModel
     private $taskExist = true;
 
 
-    function __construct($userEmail)
+    function __construct(string $userEmail)
     {
         $db = new Database();
         $this->conn = $db->getConnection();
         $this->user = $userEmail;
     }
 
-    public function createTask(array $data)
+    public function createTask(array $data):int
     {
         //set class properties
         foreach ($data as $key => $value) {
@@ -47,15 +47,14 @@ class Task extends TaskModel
 
             //execute
             $stmt->execute();
-
-            return http_response_code(200);
+            return  http_response_code(200);
         } catch (PDOException $e) {
             http_response_code(501);
             echo $e;
         }
     }
 
-    function getOneTask($id)
+    function getOneTask(string $id)
     {
         try {
             //check if task exists
@@ -83,7 +82,7 @@ class Task extends TaskModel
         return json_encode($alltask);
     }
 
-    public function updateTask($id, array $data)
+    public function updateTask(string $id, array $data): int
     {
 
         try {
@@ -121,7 +120,7 @@ class Task extends TaskModel
         }
     }
 
-    public function deleteTask($id)
+    public function deleteTask(string $id):int
     {
 
         try {
@@ -145,7 +144,7 @@ class Task extends TaskModel
             echo $e;
         }
     }
-    public function deleteManyTasks(array $data)
+    public function deleteManyTasks(array $data):int
     {
 
         $ids = '';
@@ -168,7 +167,7 @@ class Task extends TaskModel
             echo $e;
         }
     }
-    public function taskExist($id)
+    public function taskExist(string $id):bool
     {
 
         $query = "SELECT * FROM  `task_table` WHERE userEmail ='" . $this->user . "' AND id = $id; ";

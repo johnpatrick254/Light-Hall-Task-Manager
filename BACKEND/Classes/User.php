@@ -29,7 +29,7 @@ class User extends UserModel
 
     //check if user exists
 
-    public function UserExist($userEmail)
+    public function UserExist(string $userEmail):bool
     {
 
         $query = "SELECT * FROM  `users_table` WHERE userEmail ='" . $userEmail . "'; ";
@@ -43,9 +43,10 @@ class User extends UserModel
             $this->userexist = true;
             return true;
         }
+        
     }
     //register User
-    public function registerUser()
+    public function registerUser():string
     {
 
         try {
