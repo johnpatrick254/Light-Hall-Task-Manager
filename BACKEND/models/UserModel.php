@@ -1,0 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+abstract class UserModel{
+    
+    abstract  function registerUser();
+  
+
+
+}
