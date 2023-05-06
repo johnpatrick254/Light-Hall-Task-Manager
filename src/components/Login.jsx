@@ -173,6 +173,8 @@ export const Login = () => {
             <div>
               <p
                 onClick={() => {
+              setErrText("")
+
                   setFormState((prev) => {
                     if (prev === "Login") {
                       return "Register";
