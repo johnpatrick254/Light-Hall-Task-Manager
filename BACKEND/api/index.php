@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 //Headers
-header('Access-Control-Allow-Origin:*');
-header('Content-Type:application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json");
+
 spl_autoload_register(function ($classname) {
     require_once "../Classes/$classname.php";
 });
@@ -21,24 +23,28 @@ use Firebase\JWT\Key;
 
 $url = explode("/", $_SERVER['REQUEST_URI']);
 
-if ($url[2] !== "api" || count($url) > 4) {
+
+if ($url[1] !== "api" || count($url) > 3) {
     http_response_code(400);
     exit(print_r($url));
 }
-$id = $url[3] ?? null;
+$id = $url[2] ?? null;
 
 //login and sign up
 
-if (isset($url[3]) && $url[3] === "login" || isset($url[3]) && $url[3] === "signup") {
-if ($url[3] === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($id) && $id === "login" || isset($id) && $id === "signup") {
+if ($id === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
     //LOGIN
-     echo  LoginService\signin();
-    } else if ($url[3] === "signup" && $_SERVER['REQUEST_METHOD'] == 'POST') {
+     echo LoginService\signin();
+    } else if ($id === "signup" && $_SERVER['REQUEST_METHOD'] == 'POST') {
     //SIGN UP    
-        $firstname = !is_null($_POST['firstname']) ? $_POST['firstname'] : exit("Enter firstname");
-        $lastname = !is_null($_POST['lastname']) ? $_POST['lastname'] : die("Enter lastName");
-        $userEmail = !is_null($_POST['userEmail']) ? $_POST['userEmail'] : die("Enter userEmail");
-        $password = !is_null($_POST['password']) ? $_POST['password'] : die("Enter password");
+    $data = json_decode(file_get_contents('php://input'));
+    $changes = (array) $data;
+ 
+        $firstname = !is_null($changes['firstname']) ? $changes['firstname'] : exit("Enter firstname");
+        $lastname = !is_null($changes['lastname']) ? $changes['lastname'] : die("Enter lastName");
+        $userEmail = !is_null($changes['userEmail']) ? $changes['userEmail'] : die("Enter userEmail");
+        $password = !is_null($changes['password']) ? $changes['password'] : die("Enter password");
 
         //instanciate user
         $service = new User($firstname, $lastname, $userEmail, $password);

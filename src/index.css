@@ -138,7 +138,7 @@ body {
   letter-spacing: 4px;
   color: var(--Very_Light_Grayish_Blue);
 }
-.tasks .create-note{
+.tasks .create-note {
   width: 45%;
 }
 .inputfield {
@@ -338,26 +338,69 @@ form.create-note > button {
   width: 50%;
 }
 
-.logout{
+.logout {
   margin: 2%;
 }
-.home{
+.home {
   display: flex;
   flex-flow: column nowrap;
   list-style: none;
-  gap:1rem;
+  gap: 1rem;
 }
 
-.home a{
+.home a {
   text-decoration: none;
   color: #ccc;
   margin: auto;
-
 }
-.account{
+.account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.account form {
   display: flex;
   flex-flow: column nowrap;
   list-style: none;
-  margin-top: 4%;
-  gap:1rem;
+  gap: 1rem;
+  width: 25%;
+  padding: 1% 2%;
+  text-align: left;
+  background-color: #fff;
+  align-items: center;
+  border-radius: 10px;
+  font-family: "Josefin Sans", -apple-system;
+
+  
+}
+.loginInput {
+  margin: 2%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.5rem;
+}
+.passwordInput {
+  margin: 2%;
+  display: flex;
+  flex-flow: column nowrap;
+  gap:0.5rem;
+  position: relative;
+  left: 0.7rem;
+}
+.pass-text {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.buttons {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+.buttons p{
+  text-decoration: underline;
+  cursor: pointer;
+}
+.login-button {
+  width: 5rem;
 }

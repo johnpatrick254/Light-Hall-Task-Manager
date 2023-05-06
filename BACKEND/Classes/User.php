@@ -68,7 +68,7 @@ class User extends UserModel
             http_response_code(200);
             return "Success";
             } else {
-                die("user Exists");
+                die("User exists");
             }
 
            

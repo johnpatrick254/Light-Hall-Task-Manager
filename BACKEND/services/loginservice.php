@@ -21,9 +21,10 @@ use Login;
 
 function signin()
 {
-    $password = !is_null($_POST['password']) ? $_POST['password'] : exit("Enter password");
-
-    $userEmail = !is_null($_POST['userEmail']) ? $_POST['userEmail'] : die("Enter userEmail");
+    $data = json_decode(file_get_contents('php://input'));
+    $changes = (array) $data;
+    $userEmail = !is_null($changes['userEmail']) ? $changes['userEmail'] : die("Enter userEmail");
+    $password = !is_null($changes['password']) ? $changes['password'] : exit("Enter password");
     //sign in
 
     $service = new Login($userEmail, $password);

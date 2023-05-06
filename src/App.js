@@ -2,7 +2,6 @@ import "./App.css";
 import { Dashboard } from "./pages/dashboard";
 import { Login } from "./components/Login";
 import { Routes, Route } from "react-router-dom";
-import { Signup } from "./components/Signup";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
@@ -13,28 +12,12 @@ function App() {
   const [hideLogin, setHideLogin] = useState(false);
 
   return (
-    // <div className="App">
-    //   <h1>Super League - Level 2 - Team 16</h1>
-    <div className="App">
-      {!hideLogin && (
-        <nav className="navigation ">
-          <ul className="home logout">
-            <Link
-              onClick={() => {
-                setHideLogin(true);
-              }}
-              to="/login">
-              Sign In
-            </Link>
 
-            <Link to="/signup">Sign Up</Link>
-          </ul>
-        </nav>
-      )}
+    <div className="App">
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/*" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+       
       </Routes>
 
       <Analytics />

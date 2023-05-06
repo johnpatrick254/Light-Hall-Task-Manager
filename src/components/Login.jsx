@@ -1,94 +1,194 @@
-import loginService from '../services/login'
-import React, {useState, useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button, IconButton, TextField } from "@mui/material";
+import axios from "axios";
 import "../App.css";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 export const Login = () => {
-    const [name, setUsername] = useState('') 
-    const [password, setPassword] = useState('') 
-    const [user, setUser] = useState(null)
-    const [tasks, setTasks]=useState(null)
-    const [storage,setStorage] = useState(localStorage.getItem('token'))
+  const [formState, setFormState] = useState("Login");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+  const [errText, setErrText] = useState("");
+  const [tasks, setTasks] = useState(null);
+  const [storage, setStorage] = useState(localStorage.getItem("token"));
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const BaseUrl = "http://localhost:3000/api";
 
-    const navigate = useNavigate()
+  const navigate = useNavigate();
 
-    const handleLogin = async (event) => {
-        event.preventDefault()
-        
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setErrText("")
+
+
+    try {
+      if (formState === "Login") {
         try {
-          const user = await loginService.login({
-            name, password,
-          }).then(
-            localStorage.setItem("user", name)
-          )
-          setUser(user) 
-          console.log(user,"login.jsx")
-          setUsername('')
-          setPassword('')
-        
-        } catch (exception) {
-          console.error('Wrong credentials')
-          setTimeout(() => {
-            console.error(null)
-          }, 5000)
-        }
-    }
+          await axios({
+            method: "post",
+            url: `${BaseUrl}/login`,
+            data: {
+              userEmail: email,
+              password: password,
+            },
+          }).then((res) => {
+            if(res.data ==="User is not registered"){
+              setErrText(res.data)
+              setFormState("Register");
+            }else if(res.data==="wrong username or password"){
+              setErrText(res.data)
 
-    useEffect(()=>{
-      if(user||storage){
-        console.log("test")
-        try {
-          navigate("/dashboard")
+            }else{
+              localStorage.setItem("token",res.data);
+              navigate('/dashboard');
+            }
+            
+          });
         } catch (error) {
-          console.error(error)
+          console.log(error);
         }
-        
-      }
-
-     const getTask = async()=>{
-      const tasksData = await loginService.fetchData()
-      setTasks(tasksData)
-     }
+      } else if (formState === "Register") {
+        try {
+          await axios({
+            method: "post",
+            url: `${BaseUrl}/signup`,
+            data: {
+              userEmail: email,
+              password: password,
+              firstname: firstName,
+              lastname: lastName,
+            },
+          }).then((res) => {
+            console.log(res.data)
+            if(res.data ==="User exists"){
+              setErrText(`${res.data}, sign in`)
+              setFormState("Login");
+            }else if(res.data==="Success"){
+              setErrText(` User Registered ${res.data}fully`)
+              setFormState("Login");
+            }
+            
+          });
+        } catch (error) {
+          console.log(error);
+        }
   
-      getTask()
-      }
-    ,[user])
 
-   
+
+      }
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+    } catch (exception) {
+      console.error("Wrong credentials");
+      setTimeout(() => {
+        console.error(null);
+      }, 5000);
+    }
+  };
 
   return (
-    <div className='form' >
-      
-<div className='account'>
-<h1>Login</h1>
-<form onSubmit={handleLogin}>
-      <div>
-        username
-          <input
-          type="text"
-          value={name}
-          name="name"
-          onChange={({ target }) => setUsername(target.value)}
-        />
+    <div className="form">
+      <div className="account">
+        <form onSubmit={handleLogin}>
+          <div className="error">{errText}</div>
+          <div className="loginInput">
+            <p>Email</p>
+            <TextField
+              id="outlined-basic"
+              required
+              type="email"
+              size="small"
+              variant="outlined"
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </div>
+          {formState === "Register" && (
+            <div className="loginInput">
+              <p>First Name</p>
+              <TextField
+                required
+                type="text"
+                size="small"
+                variant="outlined"
+                name="firstname"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+          )}
+          {formState === "Register" && (
+            <div className="loginInput">
+              <p>Last Name</p>
+              <TextField
+                required
+                type="text"
+                size="small"
+                variant="outlined"
+                name="lastname"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+          )}
+
+          <div className="passwordInput">
+            <p>Password</p>
+            <div className="pass-text">
+              <TextField
+                id="outlined-basic"
+                type={showPassword ? "text" : "password"}
+                size="small"
+                className="loginInput passinput"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />{" "}
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                size="small">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </div>
+          </div>
+
+          <div className="buttons">
+            <Button
+              className="login-button"
+              type="submit"
+              variant="contained"
+              size="small">
+              {formState}
+            </Button>
+            <div>
+              <p
+                onClick={() => {
+                  setFormState((prev) => {
+                    if (prev === "Login") {
+                      return "Register";
+                    } else {
+                      return "Login";
+                    }
+                  });
+                }}>
+                click here to {formState === "Login" ? "Register" : "Login"}{" "}
+              </p>
+            </div>
+          </div>
+        </form>
       </div>
-      <div>
-        password
-          <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form> 
 
-</div>
-
-    {console.log(tasks)}     
-
-
-
+      {console.log(tasks)}
     </div>
-  )
-}
+  );
+};
