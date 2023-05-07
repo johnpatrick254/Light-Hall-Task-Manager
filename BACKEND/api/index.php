@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 //Headers
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
+header("Access-Control-Allow-Methods:PUT,DELETE");
 
 spl_autoload_register(function ($classname) {
     require_once "../Classes/$classname.php";
@@ -62,10 +63,13 @@ if ($id === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
         die("Sign in to view tasks");
     } else if ($token === " Invalid authorization header format") {
         die("Invalid Header Format");
+    }else if($token === null){
+        die("No token provided");
+
     };
     //decode token
     $key = KEYS;
-    $tokenData = JWT::decode(json_decode($token), new Key($key, 'HS256'));
+    $tokenData = JWT::decode($token, new Key($key, 'HS256'));
 
     //instanciate task
     $tokenData = (array) $tokenData;

@@ -1,9 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
 namespace Route;
-
 use Task;
 
 function handleReq($method, ?string $endPoint, Task $task)
@@ -17,7 +15,8 @@ function handleReq($method, ?string $endPoint, Task $task)
                 return $task->deleteTask($endPoint); //delete task
             } else if ($method == "PUT") {
                 $data = json_decode(file_get_contents('php://input'));
-                $changes = (array) $data[0];
+                $changes = (array) $data;
+                
                 return $task->updateTask($endPoint, $changes); //update task
             }
         }
@@ -35,7 +34,7 @@ function handleReq($method, ?string $endPoint, Task $task)
                 return $task->getAllTask();  //get all tasks
             } else if ($method == "POST") {
                 $data = json_decode(file_get_contents('php://input'));
-                $newTask = (array) $data[0];
+                $newTask = (array) $data;
                 return $task->createTask($newTask); //create task
             }
         }

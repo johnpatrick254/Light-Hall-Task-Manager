@@ -1,6 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { inputRef, useState } from "react";
 import checkicon from "../assets/images/icon-check.svg";
+import crossicon from "../assets/images/icon-cross.svg"
 import { useDispatch } from "react-redux";
 import {
   removeTask,
@@ -19,8 +20,9 @@ import axios from "axios";
 const Note = (props) => {
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskDescript, setTaskDescription] = useState("");
+  const [taskTitle, setTaskTitle] = useState(props.title);
+  const [taskDescript, setTaskDescription] = useState(props.description);
+  const [taskDate, setTaskDate] = useState(props.dueDate);
   return (
     <div className="note">
       {!edit ? (
@@ -116,14 +118,20 @@ const Note = (props) => {
             </div>
           </div>
 
+          
+          {/* paragraph */}
+          <div className="taskparagarph">
+            <p  onClick={(e) => {
+                if (props.filters === "All") {
+                  setEdit(true);
+                }
+              }}>{props.description}</p>
+          </div>
+          {/* delete */}
+          <div className="notedelete">
           <div className="dueDate">
             <p> Due on {props.dueDate}</p>
           </div>
-          {/* paragraph */}
-          <div className="taskparagarph">
-            <p>{props.description}</p>
-          </div>
-          {/* delete */}
           <button
             onClick={() => {
               dispatch(
@@ -134,22 +142,13 @@ const Note = (props) => {
 
               const token = "Bearer " + localStorage.getItem("token");
 
-              const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
-              console.log(baseUrl);
+              const baseUrl = `http://localhost:3000/api/${props.id}`;
               const headers = {
-                Authorization: `${token}`,
+                Authorization: token,
               };
               axios({
                 method: "DELETE",
                 url: baseUrl,
-                data: {
-                  _id: props.id,
-                  title: props.title,
-                  description: props.description,
-                  status: props.status,
-                  dueDate: props.dueDate,
-                  user: props.user,
-                },
                 headers: headers,
               }).catch((error) => console.log(error));
 
@@ -160,22 +159,14 @@ const Note = (props) => {
                   })
                 );
                 const token = "Bearer " + localStorage.getItem("token");
-                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
-                console.log(baseUrl);
+
+                const baseUrl = `http://localhost:3000/api/${props.id}`;
                 const headers = {
-                  Authorization: `${token}`,
+                  Authorization: token,
                 };
                 axios({
                   method: "DELETE",
                   url: baseUrl,
-                  data: {
-                    _id: props.id,
-                    title: props.title,
-                    description: props.description,
-                    status: props.status,
-                    dueDate: props.dueDate,
-                    user: props.user,
-                  },
                   headers: headers,
                 }).catch((error) => console.log(error));
               } else if (props.filters === "Completed") {
@@ -186,22 +177,13 @@ const Note = (props) => {
                 );
                 const token = "Bearer " + localStorage.getItem("token");
 
-                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
-                console.log(baseUrl);
+                const baseUrl = `http://localhost:3000/api/${props.id}`;
                 const headers = {
-                  Authorization: `${token}`,
+                  Authorization: token,
                 };
                 axios({
                   method: "DELETE",
                   url: baseUrl,
-                  data: {
-                    _id: props.id,
-                    title: props.title,
-                    description: props.description,
-                    status: props.status,
-                    dueDate: props.dueDate,
-                    user: props.user,
-                  },
                   headers: headers,
                 }).catch((error) => console.log(error));
               } else if (props.filters === "dueDate") {
@@ -212,81 +194,94 @@ const Note = (props) => {
                 );
                 const token = "Bearer " + localStorage.getItem("token");
 
-                const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
-                console.log(baseUrl);
-                const headers = {
-                  Authorization: `${token}`,
-                };
-                axios({
-                  method: "DELETE",
-                  url: baseUrl,
-                  data: {
-                    _id: props.id,
-                    title: props.title,
-                    description: props.description,
-                    status: props.status,
-                    dueDate: props.dueDate,
-                    user: props.user,
-                  },
-                  headers: headers,
-                }).catch((error) => console.log(error));
+              const baseUrl = `http://localhost:3000/api/${props.id}`;
+              const headers = {
+                Authorization: token,
+              };
+              axios({
+                method: "DELETE",
+                url: baseUrl,
+                headers: headers,
+              }).catch((error) => console.log(error));
               }
             }}>
             <DeleteIcon />
-          </button>
+          </button></div>
+          
         </div>
       ) : (
+        <div>
+          <div style={{margin:"0 auto",backgroundColor:"#ffffffbb"}} className="circle">
+          <img
+                onClick={()=>{setEdit(false)}}
+                alt=""
+                src={crossicon}
+              />
+          </div>
         <Inputfield
+          date={taskDate}
           title={props.title}
           titleValue={taskTitle}
-          titlePlaceHolder={props.title}
-          descriptPlaceHolder={props.description}
+          TaskId={props.id}
           handleTitleEdit={(e) => {
             setTaskTitle(e.target.value);
-            console.log(e.target.value);
+          }}
+          handleDate={(e) => {
+            setTaskDate(e.target.value);
           }}
           contentValue={taskDescript}
           changeContent={(e) => {
-            console.log(e.target.value);
             setTaskDescription(e.target.value);
           }}
           description={props.description}
           onSubmit={async (e) => {
             setEdit(false);
             e.preventDefault();
+            const selected = props.TaskId
+            console.log(selected)
             const data = {
               id: props.id,
               content: {
+                id: props.id,
                 title: e.target.title.value,
                 description: e.target.description.value,
                 status: props.status,
                 dueDate: e.target.date.value,
               },
             };
-            dispatch(updateTask(data));
-
+            
             const token = "Bearer " + localStorage.getItem("token");
-            const baseUrl = `https://backendfortasktracker.herokuapp.com/tasks/${props.id}`;
+            const baseUrl = `http://localhost:3000/api/${props.id}`;
             const headers = {
               Authorization: `${token}`,
             };
-
-            await axios({
+            const updates = {
+              title: e.target.title.value,
+              description: e.target.description.value,
+              status: "Pending",
+              dueDate: e.target.date.value,
+              userEmail: props.user,
+            };
+            dispatch(updateTask(data));
+            console.log(baseUrl)
+           try{ await axios({
               method: "PUT",
               url: baseUrl,
-              data: {
-                title: e.target.title.value,
-                description: e.target.description.value,
-                status: props.status,
-                dueDate: e.target.date.value,
-                id: props.id,
-              },
+              data: updates,
               headers: headers,
-            }).catch((error) => console.log(error));
+            }).then(res=>console.log(res.data))}
+            catch(error){ console.log(error)};
           }}
-        />
+          />
+          </div>
       )}
     </div>
   );
 };
 export default Note;
+
+
+
+
+
+

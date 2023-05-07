@@ -264,7 +264,7 @@ body {
 form.create-note {
   position: relative;
   width: 100%;
-  margin: 30px auto 20px auto;
+  margin: 3% auto 9% auto;
   background: var(--Light_Grayish_Blue);
   padding: 15px;
   border-radius: 7px;

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import checkicon from "../assets/images/icon-check.svg";
+
 import {
   addTask,
   getTasks,
@@ -21,12 +22,13 @@ import axios from "axios";
 import SkeleTon from "./skeleteton";
 import { useNavigate } from "react-router-dom";
 import { reloadPage } from "../App";
-const baseUrl = "https://backendfortasktracker.herokuapp.com/";
+
+
 
 // import { response } from "express";
 
-export const TodoCard = (props, { taskData }) => {
-  console.log(taskData);
+export const TodoCard = (props) => {
+  const BaseUrl = "http://localhost:3000/api";
   const dispatch = useDispatch();
   const tasks = useSelector(getTasks);
   const dueDate = useSelector(dueDateSelector);
@@ -39,33 +41,26 @@ export const TodoCard = (props, { taskData }) => {
   const [date, setDate] = useState("");
 
   const navigate = useNavigate();
-  const newTask = {
-    title: title,
-    description: descript,
-    status: "Pending",
-    dueDate: date,
-    user: props.user,
-    // id: `${Math.random() * 2000 * Math.random() + 7000 * Math.random()}`,
-  };
 
   const addNewTask = async (event) => {
     const token = "Bearer " + localStorage.getItem("token");
-    console.log(token);
-    const addbaseUrl = "https://backendfortasktracker.herokuapp.com/tasks";
+    const baseUrl = `http://localhost:3000/api`;
     const headers = {
-      // 'Content-Type' : 'application/json',
-      // 'Accept' : 'application/json',
       Authorization: `${token}`,
     };
-    console.log(headers);
-    try {
-      await axios({
-        method: "post",
-        url: addbaseUrl,
-        data: newTask,
-        headers: headers,
-      }).then((res) => console.log(res));
-    } catch (error) {}
+
+   try{ await axios({
+      method: "POST",
+      url: baseUrl,
+      data: {
+        title: title,
+        description: descript,
+        status: "Pending",
+        dueDate: date,
+      },
+      headers: headers,
+    }).then(res=>console.log(res.data))}
+    catch(error){ console.log(error)};
   };
 
   const refreshList = () => {
@@ -73,41 +68,71 @@ export const TodoCard = (props, { taskData }) => {
     fetchTasks();
   };
   const fetchTasks = async () => {
-    try {
-      const response = await axios.get(baseUrl, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
-      setIsLoaded(true);
+    if(localStorage.getItem("token") === null){
+      navigate("/")
+    }
 
-      if (response.data.length !== 0) {
-        const newState = response.data.filter(
-          (task) => task.user == props.user
+    try {
+    const token = 'Bearer ' + localStorage.getItem("token") ;
+
+    const headers = {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: token
+    };
+    
+   const response = await axios.get(BaseUrl, { headers })
+      .then(res => 
+        res.data
+      )
+      .catch(error => {
+        console.error(error);
+      })
+      setIsLoaded(true);
+       
+      if (response.length===0) {
+        dispatch(
+          setAll([
+            {
+              title: "Tour the Platform ",
+              description:
+                "Welcome to Lighthall Task Manager, Click on the circle on the top right corner to mark this complete .",
+              status: "Pending",
+              dueDate: "2023-04-25",
+              user: props.user,
+              id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+            },
+            {
+              title: "Learn How to add a Task ",
+              description:
+                "Type your task title and then enter decription and due date then click on + icon to save task .",
+              status: "Pending",
+              dueDate: "2023-04-25",
+              user: props.user,
+              id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+            },
+            {
+              title: "Edit a Task ",
+              description:
+                "Click on this task title to trigger edit mode, finish by hitting the + icon to save.",
+              status: "Pending",
+              dueDate: "2023-04-25",
+              user: props.user,
+              id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
+            },
+          ])
         );
-        console.log(newState);
+      }else{
+        const newState = response;
         dispatch(setAll(newState));
         dispatch(getPending());
       }
     } catch (error) {
-      console.log(error);
-      dispatch(
-        setAll([
-          {
-            title: "Error ",
-            description:
-              "No Tasks found, username or Password is wrong, Sign up first or check credentials. You will be redirected to the Sign up page...",
-            status: "Pending",
-            dueDate: "2023-04-25",
-            user: props.user,
-            _id: Math.random() * 2000 * Math.random() + 7000 * Math.random(),
-          },
-        ])
-      );
-      setIsLoaded(true);
+      console.log(error)
       setTimeout(() => {
-        localStorage.clear();
-
-        navigate("/");
-      reloadPage()
+     localStorage.clear();
+      navigate("/");
+    reloadPage()
 
       }, 7000);
     }
@@ -121,7 +146,6 @@ export const TodoCard = (props, { taskData }) => {
           <h1> Welcome {props.user}, Manage Your Tasks</h1>
         </div>
         <Inputfield
-          title={props.title}
           titlePlaceHolder="Create A new Task"
           descriptPlaceHolder=" Add description ..."
           titleValue={title}
@@ -143,10 +167,7 @@ export const TodoCard = (props, { taskData }) => {
               description: e.target.description.value,
               status: "Pending",
               dueDate: e.target.date.value,
-              user: props.user,
-              _id: `${
-                Math.random() * 2000 * Math.random() + 7000 * Math.random()
-              }`,
+              userEmail: props.user,
             };
             setTitle("");
             setDescription("");
@@ -217,14 +238,16 @@ export const TodoCard = (props, { taskData }) => {
             return (
               <Note
                 key={index}
-                id={task._id}
+                id={task.id}
                 title={task.title}
                 status={task.status}
                 className={"circle"}
                 dueDate={task.dueDate}
                 description={task.description}
                 filters={filter}
-                user={task.user}
+                user={task.userEmail}
+                 TaskId={task.id}
+
               />
             );
           })
@@ -236,14 +259,14 @@ export const TodoCard = (props, { taskData }) => {
             return (
               <Note
                 key={index}
-                id={task._id}
+                id={task.id}
                 title={task.title}
                 status={task.status}
                 className={"circle"}
                 filters={filter}
                 dueDate={task.dueDate}
                 description={task.description}
-                user={task.user}
+                user={task.userEmail}
               />
             );
           })}
@@ -252,14 +275,14 @@ export const TodoCard = (props, { taskData }) => {
             return (
               <Note
                 key={index}
-                id={task._id}
+                id={task.id}
                 title={task.title}
                 status={task.status}
                 className={"circle"}
                 filters={filter}
                 dueDate={task.dueDate}
                 description={task.description}
-                user={task.user}
+                user={task.userEmail}
               />
             );
           })}
@@ -268,14 +291,14 @@ export const TodoCard = (props, { taskData }) => {
             return (
               <Note
                 key={index}
-                id={task._id}
+                id={task.id}
                 title={task.title}
                 status={task.status}
                 className={"circle"}
                 filters={filter}
                 description={task.description}
                 dueDate={task.dueDate}
-                user={task.user}
+                user={task.userEmail}
               />
             );
           })}

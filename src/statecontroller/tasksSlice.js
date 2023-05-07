@@ -18,26 +18,26 @@ export const Tasks = createSlice({
     },
     removeTask: (state, action) => {
       state.value = state.value.filter(
-        (task) => task._id !== action.payload.id
+        (task) => task.id !== action.payload.id
       );
     },
     updateTask: (state, action) => {
       state.value.forEach((e) => {
-        if (e._id === action.payload.id) {
+        if (e.id === action.payload.id) {
           state.value[state.value.indexOf(e)] = action.payload.content;
         }
       });
     },
     markComplete: (state, action) => {
       state.value.forEach((e) => {
-        if (e._id === action.payload.id) {
+        if (e.id === action.payload.id) {
           state.value[state.value.indexOf(e)].status = action.payload.status;
         }
       });
     },
     markpendingComplete: (state, action) => {
       state.pendingTasks.forEach((e) => {
-        if (e._id === action.payload.id) {
+        if (e.id === action.payload.id) {
           state.pendingTasks[state.pendingTasks.indexOf(e)].status =
             action.payload.status;
         }
@@ -45,7 +45,7 @@ export const Tasks = createSlice({
     },
     markCompletePending: (state, action) => {
       state.completedTasks.forEach((e) => {
-        if (e._id === action.payload.id) {
+        if (e.id === action.payload.id) {
           state.completedTasks[state.completedTasks.indexOf(e)].status =
             action.payload.status;
         }
@@ -53,7 +53,7 @@ export const Tasks = createSlice({
     },
     markDueDate: (state, action) => {
       state.dueDate.forEach((e) => {
-        if (e._id === action.payload.id) {
+        if (e.id === action.payload.id) {
           state.dueDate[state.dueDate.indexOf(e)].status =
             action.payload.status;
         }
@@ -83,17 +83,17 @@ export const Tasks = createSlice({
     },
     deleteFromPending: (state, action) => {
       state.pendingTasks = state.pendingTasks.filter(
-        (task) => task._id !== action.payload.id
+        (task) => task.id !== action.payload.id
       );
     },
     deleteFromCompleted: (state, action) => {
       state.completedTasks = state.completedTasks.filter(
-        (task) => task._id !== action.payload.id
+        (task) => task.id !== action.payload.id
       );
     },
     deleteFromdueDate: (state, action) => {
       state.dueDate = state.dueDate.filter(
-        (task) => task._id !== action.payload.id
+        (task) => task.id !== action.payload.id
       );
     },
     setAll: (state, action) => {

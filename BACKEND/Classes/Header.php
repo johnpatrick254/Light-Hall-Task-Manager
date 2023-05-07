@@ -14,8 +14,12 @@ class Header
             $authHeader = $headers['Authorization'];
             $authHeaderParts = explode(' ', $authHeader);
             if (count($authHeaderParts) === 2 && $authHeaderParts[0] === 'Bearer') {
-                $this->token = $authHeaderParts[1];
-                $this->status = true;
+                 
+                if(is_string($authHeaderParts[1])){
+                    $this->token = (string) $authHeaderParts[1];
+                    $this->status = true;
+                }
+                $this->err = "$authHeaderParts[1] is not a string";
             } else {
                 // Invalid authorization header format
                 $this->err = " Invalid authorization header format";

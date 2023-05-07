@@ -46,11 +46,13 @@ export const Login = () => {
 
             }else{
               localStorage.setItem("token",res.data);
+              localStorage.setItem("userEmail",email);
               navigate('/dashboard');
             }
             
           });
         } catch (error) {
+              setErrText(error);
           console.log(error);
         }
       } else if (formState === "Register") {
@@ -76,6 +78,7 @@ export const Login = () => {
             
           });
         } catch (error) {
+              setErrText(error);
           console.log(error);
         }
   
@@ -189,8 +192,6 @@ export const Login = () => {
           </div>
         </form>
       </div>
-
-      {console.log(tasks)}
     </div>
   );
 };
