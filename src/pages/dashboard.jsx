@@ -7,28 +7,11 @@ import { reloadPage } from "../App";
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const onHandle = () => {
-    localStorage.clear();
-    navigate("/");
-    reloadPage();
-  };
-
-
-
-
-
-
 
   return (
-    <div>
-      <div className="container">
-        <div className="logout">
-          <Button onClick={onHandle} variant="contained" size="medium">
-            Log Out
-          </Button>
-        </div>
-        <TodoCard user={localStorage.getItem("userEmail")}/>
-      </div>
-    </div>
+  
+       <TodoCard user={localStorage.getItem("userEmail")}/> 
+    
+  
   );
 };

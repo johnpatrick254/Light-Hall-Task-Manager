@@ -16,6 +16,11 @@ import {
 } from "../statecontroller/tasksSlice";
 import Inputfield from "./inpufield";
 import axios from "axios";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 const Note = (props) => {
   const [edit, setEdit] = useState(false);
@@ -23,12 +28,17 @@ const Note = (props) => {
   const [taskTitle, setTaskTitle] = useState(props.title);
   const [taskDescript, setTaskDescription] = useState(props.description);
   const [taskDate, setTaskDate] = useState(props.dueDate);
+  const [status, setSetStatus] = React.useState('Pending');
+
+  const handleChange = (event) => {
+    setSetStatus(event.target.value);
+  };
   return (
     <div className="note">
       {!edit ? (
-        <div className="contents">
+        <div className="note-contents">
           {/* header */}
-          <div className="contentHeader">
+          <div className="note-title">
             <h1
               id={props.id}
               className="task"
@@ -41,97 +51,45 @@ const Note = (props) => {
               {props.title}
             </h1>
 
-            <div
-              className="circle"
-              onClick={(e) => {
-                if (props.status !== "Completed") {
-                  dispatch(
-                    markComplete({
-                      id: props.id,
-                      status: "Completed",
-                    })
-                  );
-                } else {
-                  dispatch(
-                    markComplete({
-                      id: props.id,
-                      status: "Pending",
-                    })
-                  );
-                }
-
-                if (props.filters === "Pending") {
-                  if (props.status !== "Completed") {
-                    dispatch(
-                      markpendingComplete({
-                        id: props.id,
-                        status: "Completed",
-                      })
-                    );
-                  } else {
-                    dispatch(
-                      markpendingComplete({
-                        id: props.id,
-                        status: "Pending",
-                      })
-                    );
-                  }
-                } else if (props.filters === "Completed") {
-                  if (props.status !== "Completed") {
-                    dispatch(
-                      markCompletePending({
-                        id: props.id,
-                        status: "Completed",
-                      })
-                    );
-                  } else {
-                    dispatch(
-                      markCompletePending({
-                        id: props.id,
-                        status: "Pending",
-                      })
-                    );
-                  }
-                } else if (props.filters === "dueDate") {
-                  if (props.status !== "Completed") {
-                    dispatch(
-                      markDueDate({
-                        id: props.id,
-                        status: "Completed",
-                      })
-                    );
-                  } else {
-                    dispatch(
-                      markDueDate({
-                        id: props.id,
-                        status: "Pending",
-                      })
-                    );
-                  }
-                }
-              }}>
-              <img
-                className={props.status === "Completed" ? "check" : "uncheck"}
-                src={checkicon}
-                alt=""
-              />
-            </div>
+            
           </div>
+          <div className="note-status">
+             
+  <FormControl className="menu-item" size="small">
+  <InputLabel className="menu-item">Status</InputLabel>
+  <Select
+    labelId="demo-select-small-label"
+    id="demo-select-small"
+    value={status}
+    label="Status"
+    onChange={handleChange}
+  >
+    <MenuItem value={"Pending"}>Pending</MenuItem>
+    <MenuItem   value={"In Progress"}>In Progress</MenuItem>
+    <MenuItem   value={"Completed"}>Completed</MenuItem>
+  </Select>
+</FormControl>
+
+          </div>
+          
 
           
           {/* paragraph */}
-          <div className="taskparagarph">
+          <div className="note-paragraph">
             <p  onClick={(e) => {
                 if (props.filters === "All") {
                   setEdit(true);
                 }
               }}>{props.description}</p>
           </div>
-          {/* delete */}
-          <div className="notedelete">
-          <div className="dueDate">
+          {/* duedate */}
+          <div className="note-duedate">
             <p> Due on {props.dueDate}</p>
           </div>
+          {/* delete */}
+
+          <div className="note-delete">
+          
           <button
             onClick={() => {
               dispatch(
@@ -285,3 +243,75 @@ export default Note;
 
 
 
+// div
+//               className="circle"
+              
+//               onClick={(e) => {
+//                 if (props.status !== "Completed") {
+//                   dispatch(
+//                     markComplete({
+//                       id: props.id,
+//                       status: "Completed",
+//                     })
+//                   );
+//                 } else {
+//                   dispatch(
+//                     markComplete({
+//                       id: props.id,
+//                       status: "Pending",
+//                     })
+//                   );
+//                 }
+
+//                 if (props.filters === "Pending") {
+//                   if (props.status !== "Completed") {
+//                     dispatch(
+//                       markpendingComplete({
+//                         id: props.id,
+//                         status: "Completed",
+//                       })
+//                     );
+//                   } else {
+//                     dispatch(
+//                       markpendingComplete({
+//                         id: props.id,
+//                         status: "Pending",
+//                       })
+//                     );
+//                   }
+//                 } else if (props.filters === "Completed") {
+//                   if (props.status !== "Completed") {
+//                     dispatch(
+//                       markCompletePending({
+//                         id: props.id,
+//                         status: "Completed",
+//                       })
+//                     );
+//                   } else {
+//                     dispatch(
+//                       markCompletePending({
+//                         id: props.id,
+//                         status: "Pending",
+//                       })
+//                     );
+//                   }
+//                 } else if (props.filters === "dueDate") {
+//                   if (props.status !== "Completed") {
+//                     dispatch(
+//                       markDueDate({
+//                         id: props.id,
+//                         status: "Completed",
+//                       })
+//                     );
+//                   } else {
+//                     dispatch(
+//                       markDueDate({
+//                         id: props.id,
+//                         status: "Pending",
+//                       })
+//                     );
+//                   }
+//                 }
+//               }}>
+         
+            

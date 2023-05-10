@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gudea:wght@400;700&display=swap");
+
 :root {
   --BrightBlue: hsl(220, 98%, 61%);
   --Background: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
@@ -26,364 +27,63 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family: "Gudea", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1rem;
   font-weight: 400;
-}
-.body {
-  display: flex;
   flex-flow: column nowrap;
   align-items: center;
-}
-.container {
   margin: 0;
   padding: 0;
-  min-width: 1024px;
-  min-height: 100vh;
-  overflow: auto;
   box-sizing: border-box;
-  background-image: url(assets/images/bg-desktop-dark.jpg);
-  background-repeat: no-repeat;
-  background-color: var(--Very_Dark_Blue);
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
-.tasks {
-  margin-top: 0%;
-  width: 50%;
-  min-width: min-content;
-  display: flex;
-  flex-flow: column nowrap;
-  align-content: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-}
-.tasklist {
-  margin: 2%;
-  display: flex;
-  flex-flow: row wrap;
+  background-color: #212121;
   width: 100vw;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-}
-.note {
-  background: rgb(41, 41, 71);
-  border-radius: 7px;
-  box-shadow: 0 2px 5px #ccc;
-  padding: 10px;
-  width: 240px;
-  margin: 16px;
-  float: left;
-  text-align: center;
-}
-.note h1 {
-  font-size: 1.1em;
-  margin-bottom: 6px;
-}
-.note p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-.circle {
-  border: 1px solid rgb(175, 178, 189);
-  border-radius: 50%;
-  height: 1.3rem;
-  width: 1.3rem;
-  display: inherit;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+  display: grid;
+  grid-template-areas: "body";
+  place-content: center;
 }
 
-.check {
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-  display: inherit;
-  height: 1.2rem;
-  width: 1.2rem;
-  padding: 10%;
-  background-color: var(--BrightBlue);
-  transition: all 200ms ease-in-out;
-  opacity: 1;
-}
-.uncheck {
-  opacity: 0;
-  transition: all 200ms ease-in-out;
-}
-.tasksheader {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-}
-.tasksheader h1 {
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: var(--Very_Light_Grayish_Blue);
-}
-.tasksheader img:hover {
-  cursor: pointer;
-}
-.tasksheader h1 {
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: var(--Very_Light_Grayish_Blue);
-}
-.tasks .create-note {
-  width: 45%;
-}
-.inputfield {
-  width: 1000%;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--Very_Dark_Grayish_Blue);
-  height: 2.8rem;
-  padding: 5%;
-  border-radius: 5px;
-}
-
-.form {
-  width: 90%;
-  justify-self: flex-end;
-}
-.input-form {
-  width: 100%;
-  background-color: var(--Very_Dark_Grayish_Blue);
-  font-family: "Josefin Sans", -apple-system;
-  border: none;
-  outline: none;
-  color: var(--Very_Light_Gray);
-}
-
-.alltaskcontainer {
-  width: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  background-color: var(--Very_Dark_Grayish_Blue);
-  border-radius: 5px;
-  min-height: max-content;
-}
-
-.taskcontainer {
-  width: 100%;
-  height: max-content;
-  display: flex;
-  flex-flow: row nowrap;
-  /* justify-content: space-between; */
-  align-items: center;
-  background-color: var(--Very_Dark_Grayish_Blue);
-  height: 2.8rem;
-  padding: 5%;
-  border-radius: 5px 5px 0 0;
-  gap: 1rem;
-  border-bottom: 1px solid gray;
-  font-size: 1rem;
-}
-
-.taskcard {
-  list-style: none;
-  display: flex;
-  flex-flow: column nowrap;
-  height: fit-content;
-}
-
-.task {
-  justify-self: flex-start;
-  list-style: none;
-  color: var(--Very_Light_Gray);
-  text-decoration: none;
-  display: inherit;
-}
-.taskcontainer > img {
-  padding-left: 28%;
-  cursor: pointer;
-}
-
-.taskscontrols {
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--Very_Dark_Grayish_Blue);
-  height: 2.8rem;
-  padding: 5%;
-  gap: 1rem;
-  color: var(--Very_Light_Gray);
-  font-size: 1rem;
-  border-radius: 0 0 5px 5px;
-}
-
-.statuscard {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 0.9rem;
-  cursor: pointer;
-}
-
-.task_status:hover {
-  font-weight: 800;
-  color: var(--BrightBlue);
-}
-
-.task_status_checked {
-  font-weight: 800;
-  color: var(--BrightBlue);
-}
-.hide {
-  display: none;
-}
-
-.inputfieldcomponent {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  width: 100%;
-  justify-content: space-between;
-  overflow: auto;
-  height: auto;
-}
-.create-note {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: center;
-}
-form.create-note {
-  position: relative;
-  width: 100%;
-  margin: 3% auto 9% auto;
-  background: var(--Light_Grayish_Blue);
-  padding: 15px;
-  border-radius: 7px;
-  box-shadow: 0 1px 5px rgb(138, 137, 137);
-}
-form.create-note input,
-form.create-note textarea {
-  text-align: center;
-  width: 100%;
-  border: none;
-  padding: 4px;
-  outline: none;
-  background: var(--Light_Grayish_Blue);
-  font-size: 1.2em;
-  font-family: inherit;
-  resize: none;
-}
-form.create-note > button {
-  position: absolute;
-  right: 18px;
-  bottom: -18px;
-  background: var(--BrightBlue);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  outline: none;
-}
-.date {
-  width: 40%;
-  height: max-content;
-}
-
-.contentHeader {
-  display: flex;
-  justify-content: space-between;
-}
-.dueDate p {
-  color: var(--Very_Light_Gray);
-  border: 1px solid var(--Light_Grayish_Blue_Hover);
-  border-radius: 3px;
-  width: 65%;
-  font-size: 0.9rem;
-  padding: 3px 0;
-}
-
-.dueDate {
-  width: 100%;
-  margin-left: 15%;
-}
-.contents {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 1rem;
-  color: var(--Very_Light_Grayish_Blue);
-}
-
-.note .create-note {
-  height: 100%;
-  width: 100%;
-}
-.note .inputfieldcomponent {
-  height: 100%;
-  width: 100%;
-}
-
-.note .date {
-  width: 50%;
-}
-
-.logout {
-  margin: 2%;
-}
-.home {
-  display: flex;
-  flex-flow: column nowrap;
-  list-style: none;
-  gap: 1rem;
-}
-
-.home a {
-  text-decoration: none;
-  color: #ccc;
-  margin: auto;
-}
+/* LOGIN */
 .account {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #0f0f0f;
 }
 .account form {
   display: flex;
   flex-flow: column nowrap;
-  list-style: none;
   gap: 1rem;
-  width: 25%;
-  padding: 1% 2%;
+  background-color: white;
   text-align: left;
-  background-color: #fff;
+  border: 1px solid black;
   align-items: center;
-  border-radius: 10px;
-  font-family: "Josefin Sans", -apple-system;
-
-  
+  border-radius: 16px;
+  font-family: "Gudea", -apple-system;
+  width: 20rem;
+  font-size: 1rem;
+  font-weight: 400;
 }
+
 .loginInput {
-  margin: 2%;
+  margin: 3%;
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
+  font-weight: 700;
 }
+
 .passwordInput {
-  margin: 2%;
+  font-weight: 700;
+  margin: 3%;
   display: flex;
   flex-flow: column nowrap;
-  gap:0.5rem;
+  gap: 0.5rem;
   position: relative;
   left: 0.7rem;
 }
@@ -396,11 +96,368 @@ form.create-note > button {
   flex-flow: column nowrap;
   gap: 1.5rem;
   align-items: center;
+  margin-bottom: 4%;
 }
-.buttons p{
-  text-decoration: underline;
+
+.buttons p {
   cursor: pointer;
+  font-weight: 900;
 }
 .login-button {
-  width: 5rem;
+  color: #f1f6f9;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: rgba(8, 1, 1, 0.767);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(8, 1, 1, 1);
+}
+.login-button:hover {
+  cursor: pointer;
+  outline: 12px solid rgba(255, 255, 255, 0.3);
+}
+
+
+/* DASHBOARD */
+#root {
+  display: grid;
+  place-content: center;
+  width: 100vw;
+}
+.container {
+  display: flex;
+  place-content: center;
+  width: 100vw;
+}
+.content {
+  width: 70%;
+  display: grid;
+  margin-top: 4%;
+  grid-template-areas:
+    "header header header"
+    "header header header"
+    "main main main"
+    "main main main"
+    "main main main";
+  font-family: "Gudea" !important;
+}
+
+.header {
+  grid-area: header;
+  display: grid;
+  grid-template-areas:
+    "welcome welcome welcome logout"
+    "input input input input"
+    "input input input input"
+    "input input input input"
+    "filter filter filter filter";
+  gap: 1.5rem;
+}
+/* Header-welcome */
+
+.header-welcome {
+  grid-area: welcome;
+  place-self: start;
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 1% 3%;
+  color: #f1f6f9;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(8, 1, 1, 1);
+  width: fit-content;
+}
+.header-welcome:hover {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+
+/* Header-addtask*/
+
+.header-addtask {
+  grid-area: input;
+  place-self: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.create-note {
+  display: flex;
+  flex-flow: column;
+  width: 400px;
+  padding: 2%;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(8, 1, 1, 1);
+}
+.create-note input {
+  height: 2rem;
+  padding-left: 2%;
+  background-color: #212121;
+  color: #f1f6f9;
+  border-radius: 3px;
+  border: 0px;
+  outline: 0px;
+  font-family: "Gudea";
+  text-align: center;
+}
+.create-note textarea {
+  padding-left: 2%;
+  text-align: left;
+  border: 0px;
+  background-color: #212121;
+  color: #f1f6f9;
+  border-radius: 3px;
+  outline: none;
+}
+
+.create-note p {
+  align-self: center;
+  margin: 0;
+  gap: 0;
+}
+.create-note button {
+  align-self: flex-end;
+  position: relative;
+  top: 1.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  font-size: 2rem;
+  font-weight: 500;
+  border-radius: 50%;
+  margin: 0;
+}
+.create-note button:hover {
+  cursor: pointer;
+  background-color: black;
+  color: #f1f6f9;
+  outline: 2px solid #f1f6f9;
+}
+
+.duedate {
+  align-self: center;
+  position: relative;
+  top: 1.6rem;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+  width: 15rem;
+  margin: 0;
+}
+.duedate p {
+  margin-left: 12%;
+  font-size: 0.8rem;
+  vertical-align: middle;
+  font-weight: 400;
+  color: #f1f6f9;
+}
+
+
+/* Header-Logout */
+.header-logout {
+  grid-area: logout;
+  place-self: end;
+}
+.header-logout button {
+  color: #f1f6f9;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(8, 1, 1, 1);
+}
+.header-logout button:hover {
+  cursor: pointer;
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* header-filter */
+.header-filter {
+  grid-area: filter;
+  place-self: center;
+  width: 60%;
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(8, 1, 1, 1);
+  padding: 0.3rem 0.2rem;
+}
+
+.search-bar form{
+  background-color: #212121;
+  color: #f1f6f9;
+  width: 16rem;
+}
+.search-bar-filter{
+  background-color: #212121;
+  font-family: "Gudea" !important;
+  color: #f1f6f9 !important;
+  width: 100%;}
+  
+  
+  .search-filter{
+    display: flex;
+    color: #f1f6f9 ;
+    flex-flow: row nowrap;
+  }
+  .search-filter p:hover{
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    padding: 3px 2px;
+    cursor: pointer;
+    font: 1.4rem;
+    background-color: #0f0f0f;
+    
+  }
+
+  .refresh-button {
+    color: #f1f6f9;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background: rgba(8, 1, 1, 0.18);
+    border-radius: 6px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(8, 1, 1, 1);
+  }
+  .refresh-button:hover {
+    cursor: pointer;
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+
+  /*MAIN*/
+  .main{
+    grid-area: main;
+    margin-top: 2%;
+    border-radius: 5px;
+    outline: 1px solid #f1f6f9;
+    color: #f1f6f9;
+  }
+  
+  .tasklist{
+    display: grid;
+    grid-template-areas: "all ongoing finished";
+    grid-template-columns: repeat(3,1fr);
+    gap: 0.6rem;
+    padding: 0.9rem;
+    background: rgba(8, 1, 1, 0.18);
+    border-radius: 6px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(8, 1, 1, 1);
+  }
+
+  /* Tasks */
+  .all-tasks{
+    grid-area: all ;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    place-items: center;
+  }
+
+  .pending-tasks{
+    grid-area: ongoing ;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    place-items: center;
+  }
+
+  .completed-tasks{
+    grid-area: finished ;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 2rem;
+    place-items: center;
+  }
+
+  /* Note(Individual task) */
+
+  .note{
+    width: 100%;
+    max-width: 320px;
+    background: rgba(8, 1, 1, 0.18);
+    border-radius: 6px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(8, 1, 1, 1);
+    padding: 0.6rem;
+    
+  }
+  .note-contents{
+    display: grid;
+  grid-template-areas:
+  "title title title status"
+   "desc  desc desc desc"
+   "desc  desc desc desc"
+   "date  date date delete"
+  ;
+  row-gap: 1rem;
+}
+.note-title{
+  grid-area: title;
+  place-self: start  ;
+  font-size: 1rem ;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.note-status{
+  grid-area: status;
+  place-self: end;
+  vertical-align: middle;
+  
+}
+#demo-select-small{
+  color: #f1f6f9 !important;
+  font-size: 0.8rem ;
+  
+}
+.menu-item{
+  font-size: 0.8rem ;
+  color: #f1f6f9 !important;
+
+}
+
+
+
+.note-paragraph{
+  grid-area: desc;
+  word-break: break-all;
+}
+
+.note-duedate{
+  grid-area: date;
+}
+
+.note-delete{
+  grid-area:delete;
+  place-self: end;
 }

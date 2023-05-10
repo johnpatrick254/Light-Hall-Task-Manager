@@ -8,45 +8,47 @@ function Inputfield(props) {
   const [zoomIn, setZoom] = useState(false);
   const dispatch = useDispatch();
 
-   const newDate = Date.now()
+  const newDate = Date.now();
 
-   const covertedDate = new Date(newDate)
+  const covertedDate = new Date(newDate);
 
-   let defaultDate = covertedDate.toLocaleDateString('en-US')
+  let defaultDate = covertedDate.toLocaleDateString("en-US");
 
   return (
     <div className="inputfieldcomponent">
-      <form
-        className="create-note"
-        onSubmit={
-          props.onSubmit        
-        }>
+      <form className="create-note" onSubmit={props.onSubmit}>
         <input
-           onClick={() => setZoom(true)}
+          onClick={() => setZoom(true)}
           onChange={props.handleTitleEdit}
           className="title"
           required
           name="title"
           value={props.titleValue}
           placeholder={props.titlePlaceHolder}
-         
         />
         <textarea
-        required
+          required
           onClick={() => setZoom(true)}
           name="description"
           onChange={props.changeContent}
           value={props.contentValue}
           placeholder={props.descriptPlaceHolder}
-          
-          rows={zoomIn ? "4" : "1"}
+          rows={zoomIn ? "7" : "4"}
         />
-        <p>
-          <strong>Set Due Date</strong>
-        </p>
 
-        <input required onChange={props.handleDate} type = "date" value={props.date} min ={defaultDate} name ="date"/> 
-
+        <div className="duedate">
+          <p>Due Date</p>
+          <input
+            className="date"
+            required
+            onChange={props.handleDate}
+            type="date"
+            value={props.date}
+            min={defaultDate}
+            autoCapitalize="true"
+            name="date"
+          />
+        </div>
         <Zoom in={zoomIn && true}>
           <button type="submit">+</button>
         </Zoom>

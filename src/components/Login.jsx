@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, IconButton, TextField } from "@mui/material";
 import axios from "axios";
-import "../App.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const Login = () => {
@@ -81,18 +80,17 @@ export const Login = () => {
               setErrText(error);
           console.log(error);
         }
-  
-
-
       }
       setFirstName("");
       setLastName("");
       setEmail("");
       setPassword("");
-    } catch (exception) {
+    } catch (error) {
       console.error("Wrong credentials");
+      setErrText("Server Error");
+
       setTimeout(() => {
-        console.error(null);
+        console.log(error);
       }, 5000);
     }
   };
@@ -166,13 +164,12 @@ export const Login = () => {
           </div>
 
           <div className="buttons">
-            <Button
+            <button
               className="login-button"
               type="submit"
-              variant="contained"
-              size="small">
+              >
               {formState}
-            </Button>
+            </button>
             <div>
               <p
                 onClick={() => {
@@ -186,7 +183,7 @@ export const Login = () => {
                     }
                   });
                 }}>
-                click here to {formState === "Login" ? "Register" : "Login"}{" "}
+                click here to {formState === "Login" ? "register" : "login"}{" "}
               </p>
             </div>
           </div>
