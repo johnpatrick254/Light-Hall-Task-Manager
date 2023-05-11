@@ -8,12 +8,12 @@ header('Access-Control-Allow-Origin:*');
 header('Content-Type:application/json');
 spl_autoload_register(function ($classname) {
 
-    require_once "../Classes/$classname.php";
+    require_once __DIR__ ."/Classes/$classname.php";
 });
-require_once "../models/TaskModel.php";
-require_once "../config/config.php";
+require_once __DIR__ ."/models/TaskModel.php";
+require_once __DIR__ ."/config/config.php";
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ .'/vendor/autoload.php';
 
 use Firebase\JWT\JWT;
 use Login;

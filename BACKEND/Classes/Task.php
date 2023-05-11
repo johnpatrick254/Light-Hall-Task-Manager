@@ -4,7 +4,7 @@ declare(strict_types=1);
 header('Access-Control-Allow-Origin:*');
 header('Content-Type:application/json');
 spl_autoload_register(function ($classname) {
-    require_once "../models/$classname.php";
+    require_once __DIR__ . "/models/$classname.php";
 });
 
 class Task extends TaskModel
