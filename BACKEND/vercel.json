@@ -1,4 +1,13 @@
 {
+  "build": {
+    "env": {
+        "COMPOSER_FLAGS": "--no-dev --prefer-dist --optimize-autoloader"
+    },
+    "commands": [
+        "composer install",
+        "php artisan migrate"
+    ]
+},
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.5.2"
