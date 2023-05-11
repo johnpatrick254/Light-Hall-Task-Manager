@@ -1,15 +1,10 @@
 {
-  "build": {
-    "env": {
-        "COMPOSER_FLAGS": "--no-dev --prefer-dist --optimize-autoloader"
-    }
-},
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.5.2"
     }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index.php" }
+    { "source": "/(.*)", "destination": "api/index.php" }
   ]
 }
