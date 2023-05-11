@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 //Headers
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -11,12 +12,7 @@ header("Access-Control-Allow-Methods:PUT,DELETE");
 spl_autoload_register(function ($classname) {
     require_once "../Classes/$classname.php";
 });
-require_once "../models/UserModel.php";
-require_once "../models/TaskModel.php";
-require_once "../controllers/routeControllers.php";
-require_once "../services/loginservice.php";
-require_once "../config/config.php";
-require_once '../vendor/autoload.php';
+
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
