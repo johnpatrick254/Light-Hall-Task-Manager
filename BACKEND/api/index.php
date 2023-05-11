@@ -10,9 +10,14 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Methods:PUT,DELETE");
 
 spl_autoload_register(function ($classname) {
-    require_once "../Classes/$classname.php";
+    require_once dirname(__DIR__) ."/Classes/$classname.php";
 });
-
+require_once dirname(__DIR__) ."/models/UserModel.php";
+require_once dirname(__DIR__)."/models/TaskModel.php";
+require_once dirname(__DIR__) ."/controllers/routeControllers.php";
+require_once dirname(__DIR__) ."/services/loginservice.php";
+require_once dirname(__DIR__) ."/config/config.php";
+require_once dirname(__DIR__) .'/vendor/autoload.php';
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;

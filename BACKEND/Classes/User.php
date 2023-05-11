@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 spl_autoload_register(function ($classname) {
-    require_once "../models/$classname.php";
+    require_once dirname(__DIR__) ."/models/$classname.php";
 });
 
 class User extends UserModel

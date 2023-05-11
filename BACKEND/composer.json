@@ -4,5 +4,14 @@
         "tracy/tracy": "^2.6.0",
         "firebase/php-jwt": "^6.4",
         "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Classes\\": "Classes/",
+            "config\\": "config/",
+            "models\\": "models/",
+            "services\\": "services/",
+            "vender\\": "vendor/"
+        }
     }
 }
