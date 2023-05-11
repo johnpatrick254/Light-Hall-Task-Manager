@@ -17,7 +17,7 @@ export const Login = () => {
   const [storage, setStorage] = useState(localStorage.getItem("token"));
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const BaseUrl = "http://localhost:3000/api";
+  const BaseUrl = "https://light-hall-task-manager-ksjx.vercel.app/api";
 
   const navigate = useNavigate();
 
@@ -80,7 +80,7 @@ export const Login = () => {
             
           });
         } catch (error) {
-              setErrText(error);
+              setErrText("server error");
           console.log(error);
         }
       }

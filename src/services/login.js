@@ -2,7 +2,7 @@ import axios from "axios";
 
 const token = "1";
 console.log(token);
-const baseUrl = 'https://backendfortasktracker.herokuapp.com/'
+const baseUrl = 'https://light-hall-task-manager-ksjx.vercel.app/'
 
 const headers = {
   "Content-Type": "application/json",

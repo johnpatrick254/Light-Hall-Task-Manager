@@ -70,7 +70,7 @@ if ($id === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
     };
     //decode token
     $key = KEYS;
-    $tokenData = JWT::decode($token, new Key($key, 'HS256'));
+    $tokenData = JWT::decode(json_decode($token), new Key($key, 'HS256'));
 
     //instanciate task
     $tokenData = (array) $tokenData;

@@ -100,7 +100,7 @@ const Note = (props) => {
 
               const token = "Bearer " + localStorage.getItem("token");
 
-              const baseUrl = `http://localhost:3000/api/${props.id}`;
+              const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
               const headers = {
                 Authorization: token,
               };
@@ -118,7 +118,7 @@ const Note = (props) => {
                 );
                 const token = "Bearer " + localStorage.getItem("token");
 
-                const baseUrl = `http://localhost:3000/api/${props.id}`;
+                const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
                 const headers = {
                   Authorization: token,
                 };
@@ -135,7 +135,7 @@ const Note = (props) => {
                 );
                 const token = "Bearer " + localStorage.getItem("token");
 
-                const baseUrl = `http://localhost:3000/api/${props.id}`;
+                const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
                 const headers = {
                   Authorization: token,
                 };
@@ -152,7 +152,7 @@ const Note = (props) => {
                 );
                 const token = "Bearer " + localStorage.getItem("token");
 
-              const baseUrl = `http://localhost:3000/api/${props.id}`;
+              const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
               const headers = {
                 Authorization: token,
               };
@@ -209,7 +209,7 @@ const Note = (props) => {
             };
             
             const token = "Bearer " + localStorage.getItem("token");
-            const baseUrl = `http://localhost:3000/api/${props.id}`;
+            const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
             const headers = {
               Authorization: `${token}`,
             };

@@ -29,7 +29,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 // import { response } from "express";
 
 export const TodoCard = (props) => {
-  const BaseUrl = "http://localhost:3000/api";
+  const BaseUrl = "https://light-hall-task-manager-ksjx.vercel.app/api";
   const dispatch = useDispatch();
   const tasks = useSelector(getTasks);
   const dueDate = useSelector(dueDateSelector);
@@ -46,7 +46,6 @@ export const TodoCard = (props) => {
 
   const addNewTask = async (event) => {
     const token = "Bearer " + localStorage.getItem("token");
-    const baseUrl = `http://localhost:3000/api`;
     const headers = {
       Authorization: `${token}`,
     };
@@ -54,7 +53,7 @@ export const TodoCard = (props) => {
     try {
       await axios({
         method: "POST",
-        url: baseUrl,
+        url: BaseUrl,
         data: {
           title: title,
           description: descript,
@@ -93,7 +92,7 @@ export const TodoCard = (props) => {
           console.error(error);
         });
       setIsLoaded(true);
-
+       console.log(response)
       if (response.length === 0) {
         dispatch(
           setAll([
@@ -144,7 +143,7 @@ export const TodoCard = (props) => {
   const onHandle = () => {
     localStorage.clear();
     navigate("/");
-    reloadPage();
+    // reloadPage();
   };
   return (
     <div className="container">
