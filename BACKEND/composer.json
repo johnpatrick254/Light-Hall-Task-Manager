@@ -11,7 +11,7 @@
             "config\\": "config/",
             "models\\": "models/",
             "services\\": "services/",
-            "vender\\": "vendor/"
+            "vendor\\": "vendor/"
         }
     }
 }
