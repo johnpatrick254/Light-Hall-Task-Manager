@@ -43,6 +43,9 @@ export const Login = () => {
             }else if(res.data==="wrong username or password"){
               setErrText(res.data)
 
+            }else if(res.data.length === 0){
+              setErrText(` Internal error:${res.data}`)
+
             }else{
               localStorage.setItem("token",res.data);
               localStorage.setItem("userEmail",email);
