@@ -87,8 +87,9 @@ export const TodoCard = (props) => {
 
       const response = await axios
         .get(BaseUrl, { headers })
-        .then((res) => res.data)
+        .then((res) => console.log(res.data))
         .catch((error) => {
+        
           console.error(error);
         });
       setIsLoaded(true);

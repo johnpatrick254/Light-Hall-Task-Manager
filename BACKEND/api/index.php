@@ -61,6 +61,9 @@ if ($id === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $token = $header->getToken();
     //validate token
     if ($token === "Authorization header is missing") {
+        $headers = getallheaders();
+
+        echo $headers['Authorization'];
         die("Sign in to view tasks");
     } else if ($token === " Invalid authorization header format") {
         die("Invalid Header Format");

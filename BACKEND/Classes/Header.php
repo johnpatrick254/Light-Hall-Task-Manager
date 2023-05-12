@@ -9,7 +9,6 @@ class Header
     function __construct()
     {
         $headers = getallheaders();
-        $headers = getallheaders();
         if (isset($headers['Authorization'])) {
             $authHeader = $headers['Authorization'];
             $authHeaderParts = explode(' ', $authHeader);
