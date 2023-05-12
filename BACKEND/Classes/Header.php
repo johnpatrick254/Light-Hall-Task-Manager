@@ -12,6 +12,7 @@ class Header
         if (isset($headers['authorization'])) {
             $authHeader = $headers['authorization'];
             $authHeaderParts = explode(' ', $authHeader);
+            $authHeaderParts =array_diff($authHeaderParts,['"']);
             if (count($authHeaderParts) === 2 && $authHeaderParts[0] === 'Bearer') {
                  
                 if(is_string($authHeaderParts[1])){
