@@ -9,8 +9,8 @@ class Header
     function __construct()
     {
         $headers = getallheaders();
-        if (isset($headers['Authorization'])) {
-            $authHeader = $headers['Authorization'];
+        if (isset($headers['authorization'])) {
+            $authHeader = $headers['authorization'];
             $authHeaderParts = explode(' ', $authHeader);
             if (count($authHeaderParts) === 2 && $authHeaderParts[0] === 'Bearer') {
                  
