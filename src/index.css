@@ -37,13 +37,14 @@ body {
   flex-flow: column nowrap;
   align-items: center;
   margin: 0;
-  padding: 0;
+  padding: 0 !important;
   box-sizing: border-box;
   background-color: #212121;
   width: 100vw;
   display: grid;
   grid-template-areas: "body";
   place-content: center;
+  overflow-x: hidden;
 }
 
 /* LOGIN */
@@ -104,9 +105,12 @@ body {
   font-weight: 900;
 }
 .login-button {
+  display: grid;
   color: #f1f6f9;
   font-size: 1rem;
   font-weight: 700;
+  min-width: 4rem;
+  place-items: center;
   border-radius: 4px;
   padding: 0.5rem;
   background: rgba(8, 1, 1, 0.767);
@@ -120,7 +124,6 @@ body {
   cursor: pointer;
   outline: 12px solid rgba(255, 255, 255, 0.3);
 }
-
 
 /* DASHBOARD */
 #root {
@@ -136,7 +139,7 @@ body {
 .content {
   width: 70%;
   display: grid;
-  margin-top: 4%;
+  margin-top: 1%;
   grid-template-areas:
     "header header header"
     "header header header"
@@ -177,7 +180,6 @@ body {
 .header-welcome:hover {
   outline: 2px solid rgba(255, 255, 255, 0.3);
 }
-
 
 /* Header-addtask*/
 
@@ -262,7 +264,6 @@ body {
   color: #f1f6f9;
 }
 
-
 /* Header-Logout */
 .header-logout {
   grid-area: logout;
@@ -292,7 +293,7 @@ body {
   place-self: center;
   width: 60%;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   background: rgba(8, 1, 1, 0.18);
   border-radius: 6px;
@@ -303,161 +304,192 @@ body {
   padding: 0.3rem 0.2rem;
 }
 
-.search-bar form{
+.search-bar form {
   background-color: #212121;
   color: #f1f6f9;
   width: 16rem;
 }
-.search-bar-filter{
+.search-bar-filter {
   background-color: #212121;
   font-family: "Gudea" !important;
   color: #f1f6f9 !important;
-  width: 100%;}
-  
-  
-  .search-filter{
-    display: flex;
-    color: #f1f6f9 ;
-    flex-flow: row nowrap;
-  }
-  .search-filter p:hover{
-    outline: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-    padding: 3px 2px;
-    cursor: pointer;
-    font: 1.4rem;
-    background-color: #0f0f0f;
-    
-  }
+  width: 100%;
+}
 
-  .refresh-button {
-    color: #f1f6f9;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border-radius: 4px;
-    padding: 0.5rem;
-    background: rgba(8, 1, 1, 0.18);
-    border-radius: 6px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(8, 1, 1, 1);
-  }
-  .refresh-button:hover {
-    cursor: pointer;
-    outline: 2px solid rgba(255, 255, 255, 0.3);
-  }
+.search-filter {
+  display: flex;
+  color: #f1f6f9;
+  flex-flow: row nowrap;
+}
+.search-filter p:hover {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  padding: 3px 2px;
+  cursor: pointer;
+  font: 1.4rem;
+  background-color: #0f0f0f;
+}
 
+.refresh-button {
+  color: #f1f6f9;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(8, 1, 1, 1);
+}
+.refresh-button:hover {
+  cursor: pointer;
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+}
 
-  /*MAIN*/
-  .main{
-    grid-area: main;
-    margin-top: 2%;
-    border-radius: 5px;
-    outline: 1px solid #f1f6f9;
-    color: #f1f6f9;
-  }
-  
-  .tasklist{
-    display: grid;
-    grid-template-areas: "all ongoing finished";
-    grid-template-columns: repeat(3,1fr);
-    gap: 0.6rem;
-    padding: 0.9rem;
-    background: rgba(8, 1, 1, 0.18);
-    border-radius: 6px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 2px solid rgba(8, 1, 1, 1);
-  }
+/*MAIN*/
+.main {
+  grid-area: main;
+  margin-top: 2%;
+  border-radius: 5px;
+  outline: 1px solid #f1f6f9;
+  color: #f1f6f9;
+  max-width: 100%;
+}
 
-  /* Tasks */
-  .all-tasks{
-    grid-area: all ;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 2rem;
-    place-items: center;
-  }
+.tasklist {
+  display: grid;
+  grid-template-areas: "all ongoing finished";
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  padding: 0.9rem;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 2px solid rgba(8, 1, 1, 1);
+}
 
-  .pending-tasks{
-    grid-area: ongoing ;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 2rem;
-    place-items: center;
-  }
+/* Tasks */
+.all-tasks {
+  grid-area: all;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  place-items: center;
+}
 
-  .completed-tasks{
-    grid-area: finished ;
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 2rem;
-    place-items: center;
-  }
+.pending-tasks {
+  grid-area: ongoing;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  place-items: center;
+}
 
-  /* Note(Individual task) */
+.completed-tasks {
+  grid-area: finished;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2rem;
+  place-items: center;
+}
 
-  .note{
-    width: 100%;
-    max-width: 320px;
-    background: rgba(8, 1, 1, 0.18);
-    border-radius: 6px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 2px solid rgba(8, 1, 1, 1);
-    padding: 0.6rem;
-    
-  }
-  .note-contents{
-    display: grid;
+/* Note(Individual task) */
+
+.note {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(8, 1, 1, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 2px solid rgba(8, 1, 1, 1);
+  padding: 0.6rem;
+}
+.note-contents {
+  display: grid;
   grid-template-areas:
-  "title title title status"
-   "desc  desc desc desc"
-   "desc  desc desc desc"
-   "date  date date delete"
-  ;
+    "title title title status"
+    "desc  desc desc desc"
+    "desc  desc desc desc"
+    "date  date date delete";
   row-gap: 1rem;
 }
-.note-title{
+.note-title {
   grid-area: title;
-  place-self: start  ;
-  font-size: 1rem ;
+  place-self: start;
+  font-size: 1rem;
   font-weight: 700;
   vertical-align: middle;
 }
 
-.note-status{
+.note-status {
   grid-area: status;
   place-self: end;
   vertical-align: middle;
-  
 }
-#demo-select-small{
+#demo-select-small {
   color: #f1f6f9 !important;
-  font-size: 0.8rem ;
-  
+  font-size: 0.8rem;
+  background-color: #0f0f0f !important;
 }
-.menu-item{
-  font-size: 0.8rem ;
+
+.menu-item {
   color: #f1f6f9 !important;
-
 }
 
-
-
-.note-paragraph{
+.note-paragraph {
   grid-area: desc;
   word-break: break-all;
 }
 
-.note-duedate{
+.note-duedate {
   grid-area: date;
 }
 
-.note-delete{
-  grid-area:delete;
+.note-delete {
+  grid-area: delete;
   place-self: end;
+}
+
+/* Edit Note */
+.note-edit {
+  display: grid;
+  grid-template-areas:
+    "delete delete delete delete"
+    "update update update update"
+    "update update update update";
+    gap: 0.5rem;
+}
+.note-edit .create-note {
+  width: inherit;
+}
+.note-close {
+  display: grid;
+  place-self: end;
+  background-color: #ffffffbb;
+  place-items: center;
+  grid-area: delete;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+}
+
+.note-close:hover{
+  cursor: pointer;
+  outline: 7px solid rgb(15, 15, 15);
+}
+
+
+.note-update-box {
+  grid-area: update;
+}
+.skeleton{
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1.5rem;
 }

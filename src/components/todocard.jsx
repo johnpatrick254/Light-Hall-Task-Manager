@@ -87,20 +87,20 @@ export const TodoCard = (props) => {
 
       const response = await axios
         .get(BaseUrl, { headers })
-        .then((res) => console.log(res.data))
+        .then((res) => res.data)
         .catch((error) => {
         
           console.error(error);
         });
       setIsLoaded(true);
-       console.log(response)
+
       if (response.length === 0) {
         dispatch(
           setAll([
             {
               title: "Tour the Platform ",
               description:
-                "Welcome to Lighthall Task Manager, Click on the circle on the top right corner to mark this complete .",
+                "Click on the circle on the top right corner to mark this complete .",
               status: "Pending",
               dueDate: "2023-04-25",
               user: props.user,
@@ -161,6 +161,7 @@ export const TodoCard = (props) => {
           </div>
           <div className="header-addtask">
             <Inputfield
+            compClass="inputfieldcomponent"
               titlePlaceHolder="Create A new Task"
               descriptPlaceHolder=" Add description ..."
               titleValue={title}
@@ -263,7 +264,7 @@ export const TodoCard = (props) => {
             </div>
             <div className="pending-tasks">
               <div>
-                <h1>Pending Tasks</h1>
+                <h1> Tasks In Progress</h1>
               </div>
               {isloaded ? (
                 pendingTasks.map((task, index) => {

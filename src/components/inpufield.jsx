@@ -15,7 +15,7 @@ function Inputfield(props) {
   let defaultDate = covertedDate.toLocaleDateString("en-US");
 
   return (
-    <div className="inputfieldcomponent">
+    <div className={props.compClass}>
       <form className="create-note" onSubmit={props.onSubmit}>
         <input
           onClick={() => setZoom(true)}

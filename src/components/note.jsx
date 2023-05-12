@@ -55,7 +55,7 @@ const Note = (props) => {
           </div>
           <div className="note-status">
              
-  <FormControl className="menu-item" size="small">
+  <FormControl id="menu-item-form" size="small">
   <InputLabel className="menu-item">Status</InputLabel>
   <Select
     labelId="demo-select-small-label"
@@ -64,9 +64,9 @@ const Note = (props) => {
     label="Status"
     onChange={handleChange}
   >
-    <MenuItem value={"Pending"}>Pending</MenuItem>
-    <MenuItem   value={"In Progress"}>In Progress</MenuItem>
-    <MenuItem   value={"Completed"}>Completed</MenuItem>
+    <MenuItem className="menu-select-demo" value={"Pending"}>Pending</MenuItem>
+    <MenuItem className="menu-select-demo"  value={"In Progress"}>In Progress</MenuItem>
+    <MenuItem  className="menu-select-demo" value={"Completed"}>Completed</MenuItem>
   </Select>
 </FormControl>
 
@@ -168,15 +168,18 @@ const Note = (props) => {
           
         </div>
       ) : (
-        <div>
-          <div style={{margin:"0 auto",backgroundColor:"#ffffffbb"}} className="circle">
+        <div className="note-edit">
+          <div className="note-close" onClick={()=>{setEdit(false)}} >
           <img
-                onClick={()=>{setEdit(false)}}
+                
                 alt=""
                 src={crossicon}
               />
           </div>
+          <div className="note-update-box">
         <Inputfield
+            compClass="note-update"
+
           date={taskDate}
           title={props.title}
           titleValue={taskTitle}
@@ -230,7 +233,7 @@ const Note = (props) => {
             }).then(res=>console.log(res.data))}
             catch(error){ console.log(error)};
           }}
-          />
+          /></div>
           </div>
       )}
     </div>

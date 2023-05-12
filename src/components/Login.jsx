@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Button, IconButton, TextField } from "@mui/material";
 import axios from "axios";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import CircularProgress from '@mui/material/CircularProgress';
+import Stack from '@mui/material/Stack';
+
 
 export const Login = () => {
   const [formState, setFormState] = useState("Login");
@@ -18,11 +21,13 @@ export const Login = () => {
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const BaseUrl = "https://light-hall-task-manager-ksjx.vercel.app/api";
+  const[loginstatus,setLoginStatus] = useState(false)
 
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setLoginStatus(true);
     setErrText("")
 
 
@@ -38,15 +43,22 @@ export const Login = () => {
             },
           }).then((res) => {
             if(res.data ==="User is not registered"){
+              setLoginStatus(false);
+
               setErrText(res.data)
               setFormState("Register");
             }else if(res.data==="wrong username or password"){
+              setLoginStatus(false);
+             
               setErrText(res.data)
 
             }else if(res.data.length === 0){
+              setLoginStatus(false);
+
               setErrText(` Internal error:${res.data}`)
 
             }else{
+               setLoginStatus(false);
               localStorage.setItem("token",res.data);
               localStorage.setItem("userEmail",email);
               navigate('/dashboard');
@@ -54,7 +66,10 @@ export const Login = () => {
             
           });
         } catch (error) {
+          setLoginStatus(false);
+
               setErrText(error);
+
           console.log(error);
         }
       } else if (formState === "Register") {
@@ -71,15 +86,21 @@ export const Login = () => {
           }).then((res) => {
             console.log(res.data)
             if(res.data ==="User exists"){
+              setLoginStatus(false);
+
               setErrText(`${res.data}, sign in`)
               setFormState("Login");
             }else if(res.data==="Success"){
+              setLoginStatus(false);
+
               setErrText(` User Registered ${res.data}fully`)
               setFormState("Login");
             }
             
           });
         } catch (error) {
+          setLoginStatus(false);
+
               setErrText("server error");
           console.log(error);
         }
@@ -89,7 +110,8 @@ export const Login = () => {
       setEmail("");
       setPassword("");
     } catch (error) {
-      console.error("Wrong credentials");
+      setLoginStatus(false);
+
       setErrText("Server Error");
 
       setTimeout(() => {
@@ -170,8 +192,11 @@ export const Login = () => {
             <button
               className="login-button"
               type="submit"
+              
               >
-              {formState}
+              {loginstatus ? <Stack sx={{ color: 'black' }} spacing={2} direction="row">
+      <CircularProgress size={"1.1rem"} color="inherit" />
+    </Stack>: formState}
             </button>
             <div>
               <p
