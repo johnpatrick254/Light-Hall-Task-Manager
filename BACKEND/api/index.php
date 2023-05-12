@@ -63,7 +63,7 @@ if ($id === "login" && $_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($token === "Authorization header is missing") {
         $headers = getallheaders();
 
-        echo $headers['Authorization'];
+        var_dump ($headers);
         die("Sign in to view tasks");
     } else if ($token === " Invalid authorization header format") {
         die("Invalid Header Format");
