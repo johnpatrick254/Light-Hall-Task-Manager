@@ -182,4 +182,9 @@ class Task extends TaskModel
             return true;
         }
     }
+
+    function __destruct()
+    {
+        $this->conn = null;
+    }
 }

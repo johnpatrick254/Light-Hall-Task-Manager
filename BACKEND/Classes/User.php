@@ -77,4 +77,8 @@ class User extends UserModel
             echo $e;
         }
     }
+    function __destruct()
+    {
+        $this->conn = null;
+    }
 }
