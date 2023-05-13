@@ -187,20 +187,21 @@ export const TodoCard = (props) => {
                 {isloaded ? (
                   tasks &&
                   tasks.map((task, index) => {
-                    return (
-                      <Note
-                        key={index}
-                        id={task.id}
-                        title={task.title}
-                        status={task.status}
-                        className={"circle"}
-                        dueDate={task.dueDate}
-                        description={task.description}
-                        filters={filter}
-                        user={task.userEmail}
-                        TaskId={task.id}
-                      />
-                    );
+                    if (task.status === "Pending") {
+                      return (
+                        <Note
+                          key={index}
+                          id={task.id}
+                          title={task.title}
+                          status={task.status}
+                          className={"circle"}
+                          filters={filter}
+                          dueDate={task.dueDate}
+                          description={task.description}
+                          user={task.userEmail}
+                        />
+                      );
+                    }
                   })
                 ) : (
                   <SkeleTon />
