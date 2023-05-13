@@ -1,7 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import React, { inputRef, useState } from "react";
 import checkicon from "../assets/images/icon-check.svg";
-import crossicon from "../assets/images/icon-cross.svg"
+import crossicon from "../assets/images/icon-cross.svg";
 import { useDispatch } from "react-redux";
 import {
   removeTask,
@@ -16,11 +16,12 @@ import {
 } from "../statecontroller/tasksSlice";
 import Inputfield from "./inpufield";
 import axios from "axios";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { useDeleteToDoMutation, useUpdateToDoMutation } from "../api/todoslice";
+import { DataObjectOutlined } from "@mui/icons-material";
 
 const Note = (props) => {
   const [edit, setEdit] = useState(false);
@@ -28,7 +29,9 @@ const Note = (props) => {
   const [taskTitle, setTaskTitle] = useState(props.title);
   const [taskDescript, setTaskDescription] = useState(props.description);
   const [taskDate, setTaskDate] = useState(props.dueDate);
-  const [status, setSetStatus] = React.useState('Pending');
+  const [status, setSetStatus] = React.useState(props.status);
+  const [updateToDo] = useUpdateToDoMutation();
+  const [deleteToDo] = useDeleteToDoMutation();
 
   const handleChange = (event) => {
     setSetStatus(event.target.value);
@@ -50,37 +53,74 @@ const Note = (props) => {
               status={props.status}>
               {props.title}
             </h1>
-
-            
           </div>
           <div className="note-status">
-             
-  <FormControl id="menu-item-form" size="small">
-  <InputLabel className="menu-item">Status</InputLabel>
-  <Select
-    labelId="demo-select-small-label"
-    id="demo-select-small"
-    value={status}
-    label="Status"
-    onChange={handleChange}
-  >
-    <MenuItem className="menu-select-demo" value={"Pending"}>Pending</MenuItem>
-    <MenuItem className="menu-select-demo"  value={"In Progress"}>In Progress</MenuItem>
-    <MenuItem  className="menu-select-demo" value={"Completed"}>Completed</MenuItem>
-  </Select>
-</FormControl>
+            <FormControl id="menu-item-form" size="small">
+              <InputLabel className="menu-item">Status</InputLabel>
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={status}
+                label="Status"
+                onChange={handleChange}>
+                <MenuItem
+                  className="menu-select-demo"
+                  value={"Pending"}
+                  onClick={() => {
+                    updateToDo({
+                      id: props.id,
+                      data: {
+                        status: "Pending",
+                      },
+                    })
+                    setSetStatus("Pending");
+                  }}>
+                  Pending
+                </MenuItem>
+                <MenuItem
+                  className="menu-select-demo"
+                  value={"In Progress"}
+                  onClick={() => {
+                    updateToDo({
+                      id: props.id,
+                      data: {
+                        status: "In Progress",
+                      },
+                    });
+                    setSetStatus("In Progress");
 
+                  }}>
+                  In Progress
+                </MenuItem>
+                <MenuItem
+                  className="menu-select-demo"
+                  value={"Completed"}
+                  onClick={() => {
+                    updateToDo({
+                      id: props.id,
+                      data: {
+                        status: "Completed",
+                      },
+                    });
+                    setSetStatus("Completed");
+
+                  }}>
+                  Completed
+                </MenuItem>
+              </Select>
+            </FormControl>
           </div>
-          
 
-          
           {/* paragraph */}
           <div className="note-paragraph">
-            <p  onClick={(e) => {
+            <p
+              onClick={(e) => {
                 if (props.filters === "All") {
                   setEdit(true);
                 }
-              }}>{props.description}</p>
+              }}>
+              {props.description}
+            </p>
           </div>
           {/* duedate */}
           <div className="note-duedate">
@@ -89,166 +129,75 @@ const Note = (props) => {
           {/* delete */}
 
           <div className="note-delete">
-          
-          <button
-            onClick={() => {
-              dispatch(
-                removeTask({
-                  id: props.id,
-                })
-              );
-
-              const token = "Bearer " + localStorage.getItem("token");
-
-              const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
-              const headers = {
-                Authorization: token,
-              };
-              axios({
-                method: "DELETE",
-                url: baseUrl,
-                headers: headers,
-              }).catch((error) => console.log(error));
-
-              if (props.filters === "Pending") {
-                dispatch(
-                  deleteFromPending({
-                    id: props.id,
-                  })
-                );
-                const token = "Bearer " + localStorage.getItem("token");
-
-                const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
-                const headers = {
-                  Authorization: token,
-                };
-                axios({
-                  method: "DELETE",
-                  url: baseUrl,
-                  headers: headers,
-                }).catch((error) => console.log(error));
-              } else if (props.filters === "Completed") {
-                dispatch(
-                  deleteFromCompleted({
-                    id: props.id,
-                  })
-                );
-                const token = "Bearer " + localStorage.getItem("token");
-
-                const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
-                const headers = {
-                  Authorization: token,
-                };
-                axios({
-                  method: "DELETE",
-                  url: baseUrl,
-                  headers: headers,
-                }).catch((error) => console.log(error));
-              } else if (props.filters === "dueDate") {
-                dispatch(
-                  deleteFromdueDate({
-                    id: props.id,
-                  })
-                );
-                const token = "Bearer " + localStorage.getItem("token");
-
-              const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
-              const headers = {
-                Authorization: token,
-              };
-              axios({
-                method: "DELETE",
-                url: baseUrl,
-                headers: headers,
-              }).catch((error) => console.log(error));
-              }
-            }}>
-            <DeleteIcon />
-          </button></div>
-          
+            <button
+              onClick={() => {
+                const taskId= props.id
+                console.log(taskId)
+                try {
+                  const status = deleteToDo(taskId ).unwrap();
+                } catch (e) {
+                  console.log(e);
+                  console.log(status)
+                }
+              }}>
+              <DeleteIcon />
+            </button>
+          </div>
         </div>
       ) : (
         <div className="note-edit">
-          <div className="note-close" onClick={()=>{setEdit(false)}} >
-          <img
-                
-                alt=""
-                src={crossicon}
-              />
+          <div
+            className="note-close"
+            onClick={() => {
+              setEdit(false);
+            }}>
+            <img alt="" src={crossicon} />
           </div>
           <div className="note-update-box">
-        <Inputfield
-            compClass="note-update"
+            <Inputfield
+              compClass="note-update"
+              date={taskDate}
+              title={props.title}
+              titleValue={taskTitle}
+              TaskId={props.id}
+              handleTitleEdit={(e) => {
+                setTaskTitle(e.target.value);
+              }}
+              handleDate={(e) => {
+                setTaskDate(e.target.value);
+              }}
+              contentValue={taskDescript}
+              changeContent={(e) => {
+                setTaskDescription(e.target.value);
+              }}
+              description={props.description}
+              onSubmit={async (e) => {
+                setEdit(false);
+                e.preventDefault();
 
-          date={taskDate}
-          title={props.title}
-          titleValue={taskTitle}
-          TaskId={props.id}
-          handleTitleEdit={(e) => {
-            setTaskTitle(e.target.value);
-          }}
-          handleDate={(e) => {
-            setTaskDate(e.target.value);
-          }}
-          contentValue={taskDescript}
-          changeContent={(e) => {
-            setTaskDescription(e.target.value);
-          }}
-          description={props.description}
-          onSubmit={async (e) => {
-            setEdit(false);
-            e.preventDefault();
-            const selected = props.TaskId
-            console.log(selected)
-            const data = {
-              id: props.id,
-              content: {
-                id: props.id,
-                title: e.target.title.value,
-                description: e.target.description.value,
-                status: props.status,
-                dueDate: e.target.date.value,
-              },
-            };
-            
-            const token = "Bearer " + localStorage.getItem("token");
-            const baseUrl = `https://light-hall-task-manager-ksjx.vercel.app/api/${props.id}`;
-            const headers = {
-              Authorization: `${token}`,
-            };
-            const updates = {
-              title: e.target.title.value,
-              description: e.target.description.value,
-              status: "Pending",
-              dueDate: e.target.date.value,
-              userEmail: props.user,
-            };
-            dispatch(updateTask(data));
-            console.log(baseUrl)
-           try{ await axios({
-              method: "PUT",
-              url: baseUrl,
-              data: updates,
-              headers: headers,
-            }).then(res=>console.log(res.data))}
-            catch(error){ console.log(error)};
-          }}
-          /></div>
+                const data = {
+                  id: props.id,
+                  data: {
+                    title: e.target.title.value,
+                    description: e.target.description.value,
+                    status: props.status,
+                    dueDate: e.target.date.value,
+                  },
+                };
+                updateToDo(data);
+              }}
+            />
           </div>
+        </div>
       )}
     </div>
   );
 };
 export default Note;
 
-
-
-
-
-
 // div
 //               className="circle"
-              
+
 //               onClick={(e) => {
 //                 if (props.status !== "Completed") {
 //                   dispatch(
@@ -316,5 +265,3 @@ export default Note;
 //                   }
 //                 }
 //               }}>
-         
-            

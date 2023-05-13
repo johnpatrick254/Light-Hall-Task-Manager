@@ -307,7 +307,6 @@ body {
 .search-bar form {
   background-color: #212121;
   color: #f1f6f9;
-  width: 16rem;
 }
 .search-bar-filter {
   background-color: #212121;
@@ -333,6 +332,7 @@ body {
 .refresh-button {
   color: #f1f6f9;
   font-size: 0.9rem;
+  margin-right: 1rem;
   font-weight: 700;
   border-radius: 4px;
   padding: 0.5rem;
@@ -492,4 +492,13 @@ body {
   display: flex;
   flex-flow: column nowrap;
   gap: 1.5rem;
+}
+
+/* Search Results */
+
+.search-results{
+  display: flex;
+  flex: row wrap;
+  margin: 3%;
+  gap: 1.2rem;
 }

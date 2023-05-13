@@ -5,13 +5,16 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { Analytics } from "@vercel/analytics/react";
-import store from "./app/store";
+import {store} from "./app/store";
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
+import { toDoApi } from "./api/todoslice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
+
         <App />
         <Analytics />
       </Provider>
