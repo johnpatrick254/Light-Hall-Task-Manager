@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import Taskreducer from "../statecontroller/tasksSlice";
+import { setupListeners } from '@reduxjs/toolkit/query'
+import  {toDoApi}  from "../api/todoslice";
 
-export default configureStore({
-    reducer:{
-         tasks: Taskreducer
-    }
-})
+export const store = configureStore({
+  reducer: {
+    [toDoApi.reducerPath]:toDoApi.reducer
+  },
+  middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware().concat(toDoApi.middleware),
+});
+setupListeners(store.dispatch)

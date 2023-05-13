@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// NO LONGER IN USER! CHECK API slice for state controls
 export const Tasks = createSlice({
   name: "tasks",
   initialState: {
-    value: [],
     pendingTasks: [],
     completedTasks: [],
-    dueDate: [],
   },
   reducers: {
     setTask: (state, action) => {
