@@ -135,6 +135,8 @@ body {
   display: flex;
   place-content: center;
   width: 100vw;
+  max-width: 1024px;
+
 }
 .content {
   width: 70%;
@@ -290,6 +292,8 @@ body {
 /* header-filter */
 .header-filter {
   grid-area: filter;
+  display: grid;
+  grid-template-areas: "search search search refresh";
   place-self: center;
   width: 60%;
   display: flex;
@@ -304,15 +308,21 @@ body {
   padding: 0.3rem 0.2rem;
 }
 
+.search-bar{
+  grid-area: search;
+  width: 80%;
+}
+
 .search-bar form {
   background-color: #212121;
   color: #f1f6f9;
+  width: 100%;
 }
 .search-bar-filter {
   background-color: #212121;
   font-family: "Gudea" !important;
   color: #f1f6f9 !important;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .search-filter {
@@ -329,10 +339,14 @@ body {
   background-color: #0f0f0f;
 }
 
+.refresh{
+  grid-area: refresh;
+  place-items: center;
+}
 .refresh-button {
   color: #f1f6f9;
   font-size: 0.9rem;
-  margin-right: 1rem;
+  place-self: start;
   font-weight: 700;
   border-radius: 4px;
   padding: 0.5rem;
@@ -501,4 +515,76 @@ body {
   flex: row wrap;
   margin: 3%;
   gap: 1.2rem;
+}
+/* animations */
+.loading-animation{
+  animation: loading infinite 300ms 100ms alternate;
+}
+.delete-animation{
+  animation: delete infinite 300ms 100ms alternate;
+}
+.add-animation{
+  animation-name: addtask;
+  animation-duration: 700ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes loading{
+  0%{
+  opacity: 0.1;
+  }
+  25%{
+    opacity: 0.25;
+
+  }
+  50%{
+    opacity: 0.50;
+
+  }
+  75%{
+    opacity: 0.75;
+
+  }
+  100%{
+  opacity: 1;
+    
+  }
+
+}
+
+@keyframes delete{
+
+  0%{
+    transform: rotate(0);
+  }
+  25%{
+    transform: rotate(45deg);
+    
+  }
+  50%{
+    transform: rotate(0);
+    
+  }
+  75%{
+    transform: rotate(-45deg);
+    
+  }
+  100%{
+    transform: rotate(0);
+      
+    }
+
+}
+@keyframes addtask{
+
+  0%{
+    transform: rotate(0);
+  }
+  
+  100%{
+    transform: rotate(360deg);
+      
+    }
+
 }

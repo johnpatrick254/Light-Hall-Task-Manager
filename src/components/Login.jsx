@@ -59,8 +59,10 @@ export const Login = () => {
 
             }else{
                setLoginStatus(false);
+
+               const time = Date.now()
               localStorage.setItem("token",res.data);
-              localStorage.setItem("userEmail",email);
+              localStorage.setItem("time",time);
               navigate('/dashboard');
             }
             

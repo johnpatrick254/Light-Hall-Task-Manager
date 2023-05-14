@@ -3,10 +3,11 @@ import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
 import { useDispatch, useSelector } from "react-redux";
+import { useAddToDoMutation } from "../api/todoslice";
 
 function Inputfield(props) {
   const [zoomIn, setZoom] = useState(false);
-  const dispatch = useDispatch();
+  const{isLoading:adding}= useAddToDoMutation()
 
   const newDate = Date.now();
 
@@ -49,8 +50,8 @@ function Inputfield(props) {
             name="date"
           />
         </div>
-        <Zoom in={zoomIn && true}>
-          <button type="submit">+</button>
+        <Zoom  in={zoomIn && true}>
+          <button className={props.addClass} type="submit">+</button>
         </Zoom>
       </form>
     </div>

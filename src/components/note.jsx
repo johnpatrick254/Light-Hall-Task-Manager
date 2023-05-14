@@ -30,8 +30,10 @@ const Note = (props) => {
   const [taskDescript, setTaskDescription] = useState(props.description);
   const [taskDate, setTaskDate] = useState(props.dueDate);
   const [status, setSetStatus] = React.useState(props.status);
-  const [updateToDo] = useUpdateToDoMutation();
-  const [deleteToDo] = useDeleteToDoMutation();
+  const [updateToDo,{isLoading:updating,isSuccess:updatingComplete}] = useUpdateToDoMutation();
+  const [deleteToDo,{isLoading:deleting,isSuccess:deletingComplete}] = useDeleteToDoMutation();
+  const [animate,setAnimate] = useState(true);
+
 
   const handleChange = (event) => {
     setSetStatus(event.target.value);
@@ -39,7 +41,7 @@ const Note = (props) => {
   return (
     <div className="note">
       {!edit ? (
-        <div className="note-contents">
+        <div className={`note-contents ${updating && 'loading-animation'}`}>
           {/* header */}
           <div className="note-title">
             <h1
@@ -128,7 +130,7 @@ const Note = (props) => {
           </div>
           {/* delete */}
 
-          <div className="note-delete">
+          <div className={`note-delete ${deleting && 'delete-animation'}`}>
             <button
               onClick={() => {
                 const taskId= props.id

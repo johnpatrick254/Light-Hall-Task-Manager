@@ -36,7 +36,7 @@ export const TodoCard = (props) => {
     isError,
     error,
   } = useFetchAllToDosQuery();
-  const [addToDo] = useAddToDoMutation();
+  const [addToDo,{isLoading:adding}] = useAddToDoMutation();
 
   const refreshList = () => {
     setIsLoaded(false);
@@ -78,6 +78,7 @@ export const TodoCard = (props) => {
               handleDate={(e) => {
                 setDate(e.target.value);
               }}
+              addClass={adding && "add-animation"}
               date={date}
               handleTitleEdit={(e) => {
                 setTitle(e.target.value);
