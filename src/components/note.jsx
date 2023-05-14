@@ -41,7 +41,7 @@ const Note = (props) => {
   return (
     <div className="note">
       {!edit ? (
-        <div className={`note-contents ${updating && 'loading-animation'}`}>
+        <div className={`note-contents ${(updating && !updatingComplete )&& 'loading-animation'}`}>
           {/* header */}
           <div className="note-title">
             <h1

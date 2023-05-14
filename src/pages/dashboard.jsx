@@ -11,8 +11,8 @@ export const Dashboard = () => {
 
   if(currentTime>expiry){
     navigate('/')
-    localStorage.clear("time")
-    localStorage.clear("token")
+    localStorage.clear("")
+    
   }
   return (
       <TodoCard user={localStorage.getItem("userEmail")}/>

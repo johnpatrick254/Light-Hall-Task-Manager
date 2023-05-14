@@ -42,7 +42,7 @@ export const TodoCard = (props) => {
     setIsLoaded(false);
    refetch();
   };
-
+  
   if (!isloaded) {
     tasks && setIsLoaded(true);
   }
