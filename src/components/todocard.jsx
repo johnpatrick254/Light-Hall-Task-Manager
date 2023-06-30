@@ -27,6 +27,7 @@ export const TodoCard = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchState, setSearchState] = useState(true);
   const [searchData, setSearchData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const navigate = useNavigate();
   const {
     data: tasks,
@@ -36,13 +37,13 @@ export const TodoCard = (props) => {
     isError,
     error,
   } = useFetchAllToDosQuery();
-  const [addToDo,{isLoading:adding}] = useAddToDoMutation();
+  const [addToDo, { isLoading: adding }] = useAddToDoMutation();
 
   const refreshList = () => {
     setIsLoaded(false);
-   refetch();
+    refetch();
   };
-  
+
   if (!isloaded) {
     tasks && setIsLoaded(true);
   }
@@ -53,7 +54,12 @@ export const TodoCard = (props) => {
     // reloadPage();
   };
 
- 
+  useEffect(() => {
+    tasks && setFilteredData(tasks);
+    console.log(tasks)
+    // return setFilteredData([])
+  }, [tasks])
+
   return (
     <div className="container">
       {/*--------HEADER-------- */}
@@ -165,13 +171,20 @@ export const TodoCard = (props) => {
                 )}
               </Paper>
             </div>
-   
+
             <div className="refresh">
               <button
                 onClick={() => {
-                  tasks.sort((a,b)=>{
-                    
-                    if (a.dueDate > b.dueDate) return console.log(a.dueDate);
+                  setFilteredData(prev => {
+                    const sorted = [...prev];
+                    console.log(prev)
+                    sorted.sort((a, b) => {
+                      const dateA = new Date(a.dueDate);
+                      const dateB = new Date(b.dueDate);
+                      return dateB - dateA;
+                    })
+                    console.log(sorted)
+                    return sorted
                   })
                 }}
                 className="refresh-button">
@@ -201,7 +214,7 @@ export const TodoCard = (props) => {
                 </div>
                 {isloaded ? (
                   tasks &&
-                  tasks.map((task, index) => {
+                  filteredData.map((task, index) => {
                     if (task.status === "Pending") {
                       return (
                         <Note
@@ -228,7 +241,7 @@ export const TodoCard = (props) => {
                 </div>
                 {isloaded ? (
                   tasks &&
-                  tasks.map((task, index) => {
+                  filteredData.map((task, index) => {
                     if (task.status === "In Progress") {
                       return (
                         <Note
@@ -255,7 +268,7 @@ export const TodoCard = (props) => {
                 </div>
                 {isloaded ? (
                   tasks &&
-                  tasks.map((task, index) => {
+                  filteredData.map((task, index) => {
                     if (task.status === "Completed") {
                       return (
                         <Note
