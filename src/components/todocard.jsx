@@ -28,6 +28,7 @@ export const TodoCard = (props) => {
   const [searchState, setSearchState] = useState(true);
   const [searchData, setSearchData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
+  const [ascending, setascending] = useState(false);
   const navigate = useNavigate();
   const {
     data: tasks,
@@ -39,10 +40,6 @@ export const TodoCard = (props) => {
   } = useFetchAllToDosQuery();
   const [addToDo, { isLoading: adding }] = useAddToDoMutation();
 
-  const refreshList = () => {
-    setIsLoaded(false);
-    refetch();
-  };
 
   if (!isloaded) {
     tasks && setIsLoaded(true);
@@ -179,9 +176,18 @@ export const TodoCard = (props) => {
                     const sorted = [...prev];
                     console.log(prev)
                     sorted.sort((a, b) => {
-                      const dateA = new Date(a.dueDate);
-                      const dateB = new Date(b.dueDate);
-                      return dateB - dateA;
+                      if(!ascending){
+                        setascending(!ascending)
+                        const dateA = new Date(a.dueDate);
+                        const dateB = new Date(b.dueDate);
+                        return dateB - dateA;
+                      }else{
+                        setascending(!ascending)
+                        const dateA = new Date(a.dueDate);
+                        const dateB = new Date(b.dueDate);
+                        return dateA - dateB;
+                      }
+                      
                     })
                     console.log(sorted)
                     return sorted
@@ -191,15 +197,7 @@ export const TodoCard = (props) => {
                 Filter by Due date
               </button>
             </div>
-            <div className="refresh">
-              <button
-                onClick={() => {
-                  refreshList();
-                }}
-                className="refresh-button">
-                Refresh
-              </button>
-            </div>
+           
           </div>
         </section>
 
