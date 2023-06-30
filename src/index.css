@@ -139,7 +139,7 @@ body {
 
 }
 .content {
-  width: 70%;
+  width: 90%;
   display: grid;
   margin-top: 1%;
   grid-template-areas:
@@ -295,7 +295,7 @@ body {
   display: grid;
   grid-template-areas: "search search search refresh";
   place-self: center;
-  width: 60%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -310,7 +310,7 @@ body {
 
 .search-bar{
   grid-area: search;
-  width: 80%;
+  width: 50%;
 }
 
 .search-bar form {
@@ -369,7 +369,7 @@ body {
   border-radius: 5px;
   outline: 1px solid #f1f6f9;
   color: #f1f6f9;
-  max-width: 100%;
+  min-width: 640px;
 }
 
 .tasklist {
@@ -416,6 +416,7 @@ body {
 .note {
   width: 100%;
   max-width: 320px;
+  min-width: 198px;
   background: rgba(8, 1, 1, 0.18);
   border-radius: 6px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -512,7 +513,7 @@ body {
 
 .search-results{
   display: flex;
-  flex: row wrap;
+  flex-flow: row wrap;
   margin: 3%;
   gap: 1.2rem;
 }
