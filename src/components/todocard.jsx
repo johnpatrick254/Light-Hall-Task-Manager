@@ -52,6 +52,8 @@ export const TodoCard = (props) => {
     navigate("/");
     // reloadPage();
   };
+
+ 
   return (
     <div className="container">
       {/*--------HEADER-------- */}
@@ -164,6 +166,18 @@ export const TodoCard = (props) => {
               </Paper>
             </div>
    
+            <div className="refresh">
+              <button
+                onClick={() => {
+                  tasks.sort((a,b)=>{
+                    
+                    if (a.dueDate > b.dueDate) return console.log(a.dueDate);
+                  })
+                }}
+                className="refresh-button">
+                Filter by Due date
+              </button>
+            </div>
             <div className="refresh">
               <button
                 onClick={() => {
