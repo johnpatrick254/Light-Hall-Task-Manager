@@ -369,7 +369,7 @@ body {
   border-radius: 5px;
   outline: 1px solid #f1f6f9;
   color: #f1f6f9;
-  min-width: 640px;
+  min-width: 655px;
 }
 
 .tasklist {
@@ -424,6 +424,7 @@ body {
   -webkit-backdrop-filter: blur(5px);
   border: 2px solid rgba(8, 1, 1, 1);
   padding: 0.6rem;
+  position: relative;
 }
 .note-contents {
   display: grid;
@@ -440,6 +441,7 @@ body {
   font-size: 1rem;
   font-weight: 700;
   vertical-align: middle;
+  width: 100%;
 }
 
 .note-status {
@@ -478,20 +480,22 @@ body {
     "delete delete delete delete"
     "update update update update"
     "update update update update";
-    gap: 0.5rem;
 }
 .note-edit .create-note {
   width: inherit;
 }
 .note-close {
   display: grid;
-  place-self: end;
   background-color: #ffffffbb;
   place-items: center;
   grid-area: delete;
   height: 1.5rem;
   width: 1.5rem;
   border-radius: 50%;
+  position: absolute;
+  top: -6%;
+  right: 0;
+  z-index: 200;
 }
 
 .note-close:hover{
